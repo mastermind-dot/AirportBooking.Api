@@ -1,6 +1,8 @@
 using AirportBooking.Application.Interfaces;
 using AirportBooking.Domain.Entities;
 using AirportBooking.Infrastructure.Data;
+using AirportBooking.Infrastructure.Bookings;
+using AirportBooking.Infrastructure.Flights;
 using AirportBooking.Infrastructure.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -40,6 +42,9 @@ public static class DependencyInjection
 
         services.AddIdentityServices();
         services.AddJwtOptions(configuration);
+
+        services.AddScoped<IFlightService, FlightService>();
+        services.AddScoped<IBookingService, BookingService>();
 
         return services;
     }

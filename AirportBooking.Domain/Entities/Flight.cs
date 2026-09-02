@@ -95,6 +95,16 @@ public class Flight
 
     public bool IsDirect => Stops == 0;
 
+    /// <summary>
+    /// The factor applied to the economy fare for a given cabin.
+    ///
+    /// Exposed so a database query can filter on price without materialising
+    /// rows: <c>BasePrice * multiplier</c> translates to SQL, whereas a call to
+    /// <see cref="PriceFor"/> would not. Ordering by BasePrice is likewise
+    /// equivalent to ordering by cabin price, since every multiplier is positive.
+    /// </summary>
+    public static decimal MultiplierFor(CabinClass cabin) => CabinMultipliers[cabin];
+
     /// <summary>Fare for a single passenger in the given cabin, rounded to cents.</summary>
     public decimal PriceFor(CabinClass cabin) =>
         Math.Round(BasePrice * CabinMultipliers[cabin], 2, MidpointRounding.AwayFromZero);

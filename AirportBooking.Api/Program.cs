@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using AirportBooking.Api.Extensions;
 using AirportBooking.Api.Filters;
 using AirportBooking.Api.Middleware;
@@ -12,6 +13,14 @@ builder.Services.AddControllers(options =>
 {
     // Applied globally so a new endpoint cannot forget to validate its input.
     options.Filters.Add<ValidationFilter>();
+})
+.AddJsonOptions(options =>
+{
+    // Enums as names, not ordinals. Query strings already accept
+    // "cabin=Business", so returning 2 would make the API inconsistent with
+    // itself — and it would silently change meaning if the enum were ever
+    // reordered, exactly the reason BookingStatus is stored as text.
+    options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
 });
 
 builder.Services.AddOpenApi();

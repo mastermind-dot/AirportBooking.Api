@@ -134,6 +134,24 @@ public static class ApiServiceCollectionExtensions
                         QueueLimit = 0
                     }));
 
+            // Search is public and a user legitimately hits it repeatedly while
+            // adjusting filters, so the limit is far looser than auth. It exists
+            // to stop scraping of the whole schedule, not to police normal use.
+            options.AddPolicy(ApiPolicies.SearchRateLimit, context =>
+                RateLimitPartition.GetFixedWindowLimiter(
+                    partitionKey: context.Connection.RemoteIpAddress?.ToString() ?? "unknown",
+                    factory: _ => new FixedWindowRateLimiterOptions
+                    {
+                        PermitLimit = 60,
+                        Window = TimeSpan.FromMinutes(1),
+
+                        // A small queue absorbs a burst from someone dragging a
+                        // price slider, instead of failing a request they will
+                        // immediately retry anyway.
+                        QueueLimit = 10,
+                        QueueProcessingOrder = QueueProcessingOrder.OldestFirst
+                    }));
+
             options.OnRejected = async (context, token) =>
             {
                 context.HttpContext.Response.Headers.RetryAfter = "60";

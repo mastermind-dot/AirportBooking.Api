@@ -8,5 +8,6 @@ namespace AirportBooking.Api.Extensions;
 public static class ApiPolicies
 {
     public const string AuthRateLimit = "auth";
+    public const string SearchRateLimit = "search";
     public const string FrontendCors = "FrontendOnly";
 }
