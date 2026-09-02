@@ -52,6 +52,20 @@ public sealed record Error(string Code, string Message)
 
     public static readonly Error BookingNotCancellable =
         new("bookings.not_cancellable", "This booking can no longer be cancelled.");
+
+    /// <summary>No Stripe key configured. Reported as 503, since it is our problem, not the caller's.</summary>
+    public static readonly Error PaymentsUnavailable =
+        new("payments.unavailable", "Payments are not available right now.");
+
+    public static readonly Error BookingNotPayable =
+        new("payments.booking_not_payable", "This booking is not awaiting payment.");
+
+    /// <summary>The webhook signature did not verify — the request did not come from Stripe.</summary>
+    public static readonly Error InvalidWebhookSignature =
+        new("payments.invalid_signature", "Signature verification failed.");
+
+    public static Error PaymentGateway(string detail) =>
+        new("payments.gateway_error", detail);
 }
 
 public class Result

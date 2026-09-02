@@ -152,6 +152,21 @@ public static class ApiServiceCollectionExtensions
                         QueueProcessingOrder = QueueProcessingOrder.OldestFirst
                     }));
 
+            // Starting a payment is a deliberate act — a handful per minute is
+            // already generous. Tight because each one costs a Stripe API call,
+            // and because repeated attempts on one booking are a sign of trouble
+            // rather than of normal use. The webhook is exempt entirely: Stripe
+            // retries in bursts, and throttling those delays real confirmations.
+            options.AddPolicy(ApiPolicies.PaymentRateLimit, context =>
+                RateLimitPartition.GetFixedWindowLimiter(
+                    partitionKey: context.Connection.RemoteIpAddress?.ToString() ?? "unknown",
+                    factory: _ => new FixedWindowRateLimiterOptions
+                    {
+                        PermitLimit = 15,
+                        Window = TimeSpan.FromMinutes(1),
+                        QueueLimit = 0
+                    }));
+
             options.OnRejected = async (context, token) =>
             {
                 context.HttpContext.Response.Headers.RetryAfter = "60";

@@ -147,29 +147,40 @@ public sealed class BookingService : IBookingService
                 PagedResult<BookingSummaryDto>.Empty(page, pageSize));
         }
 
-        var bookings = await query
-            .Include(b => b.Flight).ThenInclude(f => f.Origin)
-            .Include(b => b.Flight).ThenInclude(f => f.Destination)
+        // The passenger count is computed in SQL rather than by loading the
+        // passengers. Booking.PassengerCount is Passengers.Count, so reading it
+        // without an include would report zero for every row — and loading them
+        // would drag passport numbers into memory for a list that never shows
+        // them.
+        var rows = await query
             .OrderByDescending(b => b.CreatedAtUtc)
             .ThenBy(b => b.Id)
             .Skip((page - 1) * pageSize)
             .Take(pageSize)
-            .ToListAsync(cancellationToken);
-
-        var items = bookings
-            .Select(b => new BookingSummaryDto(
+            .Select(b => new BookingRow(
                 b.Id,
                 b.Reference,
                 b.Status,
                 b.CabinClass,
                 b.TotalAmount,
                 b.Currency,
-                // Passengers are not loaded for the list view, so this comes from
-                // the booking rather than the collection.
-                b.PassengerCount,
+                b.Passengers.Count,
                 b.CreatedAtUtc,
-                ToFlightDto(b.Flight)))
-            .ToList();
+                b.Flight.Id,
+                b.Flight.FlightNumber,
+                b.Flight.AirlineName,
+                b.Flight.Origin.IataCode,
+                b.Flight.Origin.City,
+                b.Flight.Origin.TimeZoneId,
+                b.Flight.Destination.IataCode,
+                b.Flight.Destination.City,
+                b.Flight.Destination.TimeZoneId,
+                b.Flight.DepartureTimeUtc,
+                b.Flight.ArrivalTimeUtc,
+                b.Flight.Stops))
+            .ToListAsync(cancellationToken);
+
+        var items = rows.Select(ToSummaryDto).ToList();
 
         return Result<PagedResult<BookingSummaryDto>>.Success(
             new PagedResult<BookingSummaryDto>(items, page, pageSize, totalCount));
@@ -293,6 +304,59 @@ public sealed class BookingService : IBookingService
                     p.SeatNumber))
                 .ToList(),
             payment?.Status);
+
+    /// <summary>The list view's columns, flattened so the query stays a single projection.</summary>
+    private sealed record BookingRow(
+        Guid Id,
+        string Reference,
+        BookingStatus Status,
+        CabinClass Cabin,
+        decimal TotalAmount,
+        string Currency,
+        int PassengerCount,
+        DateTime CreatedAtUtc,
+        Guid FlightId,
+        string FlightNumber,
+        string AirlineName,
+        string OriginIata,
+        string OriginCity,
+        string OriginTimeZoneId,
+        string DestinationIata,
+        string DestinationCity,
+        string DestinationTimeZoneId,
+        DateTime DepartureTimeUtc,
+        DateTime ArrivalTimeUtc,
+        int Stops);
+
+    private static BookingSummaryDto ToSummaryDto(BookingRow row)
+    {
+        var originZone = AirportClock.Resolve(row.OriginTimeZoneId);
+        var destinationZone = AirportClock.Resolve(row.DestinationTimeZoneId);
+
+        return new BookingSummaryDto(
+            row.Id,
+            row.Reference,
+            row.Status,
+            row.Cabin,
+            row.TotalAmount,
+            row.Currency,
+            row.PassengerCount,
+            row.CreatedAtUtc,
+            new BookingFlightDto(
+                row.FlightId,
+                row.FlightNumber,
+                row.AirlineName,
+                row.OriginIata,
+                row.OriginCity,
+                row.DestinationIata,
+                row.DestinationCity,
+                row.DepartureTimeUtc,
+                AirportClock.ToLocal(row.DepartureTimeUtc, originZone),
+                row.ArrivalTimeUtc,
+                AirportClock.ToLocal(row.ArrivalTimeUtc, destinationZone),
+                (int)(row.ArrivalTimeUtc - row.DepartureTimeUtc).TotalMinutes,
+                row.Stops));
+    }
 
     private static BookingFlightDto ToFlightDto(Flight flight)
     {
