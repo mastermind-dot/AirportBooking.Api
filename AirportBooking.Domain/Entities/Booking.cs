@@ -20,7 +20,6 @@ public class Booking
     public Booking(
         Guid userId,
         Guid flightId,
-        CabinClass cabinClass,
         decimal totalAmount,
         string currency,
         string contactEmail,
@@ -33,7 +32,6 @@ public class Booking
         Reference = GenerateReference();
         UserId = userId;
         FlightId = flightId;
-        CabinClass = cabinClass;
         TotalAmount = totalAmount;
         Currency = currency;
         ContactEmail = contactEmail;
@@ -56,8 +54,6 @@ public class Booking
 
     public Guid FlightId { get; private set; }
     public Flight Flight { get; private set; } = null!;
-
-    public CabinClass CabinClass { get; private set; }
 
     public BookingStatus Status { get; private set; }
 

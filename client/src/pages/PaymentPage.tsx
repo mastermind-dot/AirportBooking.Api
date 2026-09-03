@@ -142,7 +142,10 @@ function CheckoutForm({ bookingId }: { bookingId: string }) {
     const { error } = await stripe.confirmPayment({
       elements,
       confirmParams: {
-        // Only used by methods that leave the page — cards resolve inline.
+        // Unused as things stand: the intent is created with
+        // allow_redirects "never", so no offered method leaves the page. Kept
+        // deliberately, so flipping that server-side setting back cannot break
+        // confirmation here.
         return_url: `${window.location.origin}/paiement/${bookingId}`,
       },
       redirect: 'if_required',

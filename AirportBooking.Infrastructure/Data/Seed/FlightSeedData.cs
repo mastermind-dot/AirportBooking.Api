@@ -28,6 +28,14 @@ internal static class FlightSeedData
     /// <summary>Both Goma SD360s are 30-seat aircraft.</summary>
     private const int Seats = 30;
 
+    /// <summary>
+    /// USD is the working currency for DRC domestic aviation, so it is the
+    /// default. It is configurable because Stripe converts on every charge whose
+    /// currency differs from the account's settlement currency, and that fee is
+    /// avoidable by making the two match.
+    /// </summary>
+    internal const string DefaultCurrency = "USD";
+
     private sealed record Route(
         string Origin,
         string Destination,
@@ -54,7 +62,7 @@ internal static class FlightSeedData
 
     /// <summary>
     /// Every route generates its return leg, so these six become twelve. Fares
-    /// are in USD, the working currency for DRC domestic aviation.
+    /// are the base figure before the demand adjustment in PriceFor.
     /// </summary>
     private static readonly Route[] Routes =
     [
@@ -72,7 +80,8 @@ internal static class FlightSeedData
         IReadOnlyDictionary<string, Guid> airportIdsByIata,
         IReadOnlyDictionary<string, TimeZoneInfo> timeZonesByIata,
         HashSet<(string FlightNumber, DateTime DepartureTimeUtc)> existingKeys,
-        DateOnly startDate)
+        DateOnly startDate,
+        string currency = DefaultCurrency)
     {
         // Fixed seed: two runs over the same window produce the same prices, so
         // a screenshot or a test expectation does not rot between runs.
@@ -136,7 +145,7 @@ internal static class FlightSeedData
                         PriceFor(route.BasePrice, date, dayOffset, random),
                         Seats,
                         stops: 0,
-                        currency: "USD",
+                        currency: currency,
                         aircraftType: Aircraft));
                 }
             }

@@ -18,7 +18,7 @@ interface FlightDetails {
   arrivalTimeLocal: string;
   currency: string;
   availableSeats: number;
-  faresByCabin: Record<string, number>;
+  fare: number;
 }
 
 const emptyPassenger = (): PassengerInput => ({
@@ -82,9 +82,6 @@ export default function BookingPage() {
     try {
       const booking = await bookingsApi.create({
         flightId: id,
-        // The SD360 has a single cabin; the other classes exist in the data
-        // model but mean nothing on a 30-seat turboprop.
-        cabin: 'Economy',
         contactEmail: String(form.get('contactEmail') ?? '').trim(),
         contactPhone: String(form.get('contactPhone') ?? '').trim() || null,
         passengers: passengers.map((p) => ({
@@ -148,7 +145,7 @@ export default function BookingPage() {
     );
   }
 
-  const fare = flight?.faresByCabin?.Economy ?? 0;
+  const fare = flight?.fare ?? 0;
 
   return (
     <section className="section">

@@ -1,25 +1,14 @@
-using AirportBooking.Domain.Enums;
 using AirportBooking.Domain.Exceptions;
 
 namespace AirportBooking.Domain.Entities;
 
 /// <summary>
 /// A scheduled flight and the single source of truth for its price.
-/// The API never accepts an amount from the client — it calls
-/// <see cref="PriceFor"/> here and multiplies by the passenger count.
+/// The API never accepts an amount from the client — it reads BasePrice here
+/// and multiplies by the passenger count.
 /// </summary>
 public class Flight
 {
-    // Cabin pricing is derived from the economy fare rather than stored per
-    // cabin, so a fare change can never leave the four prices inconsistent.
-    private static readonly Dictionary<CabinClass, decimal> CabinMultipliers = new()
-    {
-        [CabinClass.Economy] = 1.0m,
-        [CabinClass.PremiumEconomy] = 1.6m,
-        [CabinClass.Business] = 2.8m,
-        [CabinClass.First] = 4.5m
-    };
-
     private Flight() { } // EF Core
 
     public Flight(
@@ -80,11 +69,14 @@ public class Flight
 
     public DateTime ArrivalTimeUtc { get; private set; }
 
-    /// <summary>Economy fare for one passenger. All other cabins derive from it.</summary>
+    /// <summary>
+    /// The fare for one passenger. There is one cabin: the SD360 is a 30-seat
+    /// turboprop with a single class, so a fare is a number rather than a table.
+    /// </summary>
     public decimal BasePrice { get; private set; }
 
     /// <summary>ISO 4217 code. Stripe wants the amount in minor units of this currency.</summary>
-    public string Currency { get; private set; } = "EUR";
+    public string Currency { get; private set; } = "USD";
 
     public int TotalSeats { get; private set; }
 
@@ -104,27 +96,13 @@ public class Flight
 
     public bool IsDirect => Stops == 0;
 
-    /// <summary>
-    /// The factor applied to the economy fare for a given cabin.
-    ///
-    /// Exposed so a database query can filter on price without materialising
-    /// rows: <c>BasePrice * multiplier</c> translates to SQL, whereas a call to
-    /// <see cref="PriceFor"/> would not. Ordering by BasePrice is likewise
-    /// equivalent to ordering by cabin price, since every multiplier is positive.
-    /// </summary>
-    public static decimal MultiplierFor(CabinClass cabin) => CabinMultipliers[cabin];
-
-    /// <summary>Fare for a single passenger in the given cabin, rounded to cents.</summary>
-    public decimal PriceFor(CabinClass cabin) =>
-        Math.Round(BasePrice * CabinMultipliers[cabin], 2, MidpointRounding.AwayFromZero);
-
     /// <summary>Total the API charges for this booking. Never trust a client-supplied figure.</summary>
-    public decimal TotalFor(CabinClass cabin, int passengerCount)
+    public decimal TotalFor(int passengerCount)
     {
         if (passengerCount < 1)
             throw new DomainException("A booking needs at least one passenger.");
 
-        return PriceFor(cabin) * passengerCount;
+        return BasePrice * passengerCount;
     }
 
     /// <summary>

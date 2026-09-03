@@ -33,7 +33,6 @@ public sealed class FlightSearchRequestValidator : AbstractValidator<FlightSearc
             .InclusiveBetween(1, 9)
             .WithMessage(_ => text["Search.PassengerRange"]);
 
-        RuleFor(x => x.Cabin).IsInEnum();
         RuleFor(x => x.SortBy).IsInEnum();
 
         RuleFor(x => x.MinPrice)

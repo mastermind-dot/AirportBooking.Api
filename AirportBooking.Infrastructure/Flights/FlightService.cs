@@ -2,7 +2,6 @@ using AirportBooking.Application.Common;
 using AirportBooking.Application.DTOs.Flights;
 using AirportBooking.Application.Interfaces;
 using AirportBooking.Domain.Entities;
-using AirportBooking.Domain.Enums;
 using AirportBooking.Infrastructure.Common;
 using AirportBooking.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
@@ -129,11 +128,6 @@ public sealed class FlightService : IFlightService
         var originZone = AirportClock.Resolve(flight.Origin.TimeZoneId, _logger);
         var destinationZone = AirportClock.Resolve(flight.Destination.TimeZoneId, _logger);
 
-        // The whole fare table, so choosing a cabin on the details page does not
-        // need another request.
-        var fares = Enum.GetValues<CabinClass>()
-            .ToDictionary(cabin => cabin.ToString(), flight.PriceFor);
-
         return Result<FlightDetailsDto>.Success(new FlightDetailsDto(
             flight.Id,
             flight.FlightNumber,
@@ -152,7 +146,7 @@ public sealed class FlightService : IFlightService
             flight.TotalSeats,
             flight.AvailableSeats,
             flight.Currency,
-            fares));
+            flight.BasePrice));
     }
 
     public async Task<IReadOnlyList<AirportDto>> GetAirportsAsync(CancellationToken cancellationToken = default)
@@ -181,20 +175,16 @@ public sealed class FlightService : IFlightService
             query = query.Where(f => codes.Contains(f.AirlineIataCode));
         }
 
-        // Price bounds are per passenger in the chosen cabin. The multiplier is a
-        // constant here, so this stays a SQL comparison against BasePrice rather
-        // than pulling rows into memory to call PriceFor on each one. Rounding to
-        // cents is skipped, which can only matter within one cent of a boundary.
-        var multiplier = Flight.MultiplierFor(request.Cabin);
-
+        // One cabin means the fare is BasePrice, so the filter is a direct SQL
+        // comparison with nothing to translate.
         if (request.MinPrice is { } minPrice)
         {
-            query = query.Where(f => f.BasePrice * multiplier >= minPrice);
+            query = query.Where(f => f.BasePrice >= minPrice);
         }
 
         if (request.MaxPrice is { } maxPrice)
         {
-            query = query.Where(f => f.BasePrice * multiplier <= maxPrice);
+            query = query.Where(f => f.BasePrice <= maxPrice);
         }
 
         // A time-of-day filter is local to the origin. Every flight in this query
@@ -222,8 +212,6 @@ public sealed class FlightService : IFlightService
     /// </summary>
     private static IQueryable<Flight> ApplySort(IQueryable<Flight> query, FlightSearchRequest request)
     {
-        // Sorting on BasePrice is equivalent to sorting on the cabin fare,
-        // because every cabin multiplier is positive.
         return (request.SortBy, request.Descending) switch
         {
             (FlightSortField.Price, false) =>
@@ -251,11 +239,6 @@ public sealed class FlightService : IFlightService
         TimeZoneInfo destinationZone,
         FlightSearchRequest request)
     {
-        var perPassenger = Math.Round(
-            row.BasePrice * Flight.MultiplierFor(request.Cabin),
-            2,
-            MidpointRounding.AwayFromZero);
-
         return new FlightSummaryDto(
             row.Id,
             row.FlightNumber,
@@ -271,9 +254,9 @@ public sealed class FlightService : IFlightService
             (int)(row.ArrivalTimeUtc - row.DepartureTimeUtc).TotalMinutes,
             row.Stops,
             row.Stops == 0,
-            request.Cabin,
-            perPassenger,
-            perPassenger * request.Passengers,
+
+            row.BasePrice,
+            row.BasePrice * request.Passengers,
             row.Currency,
             row.AvailableSeats);
     }

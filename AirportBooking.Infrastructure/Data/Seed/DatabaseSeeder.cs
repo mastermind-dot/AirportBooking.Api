@@ -1,5 +1,6 @@
 using AirportBooking.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
@@ -37,7 +38,11 @@ public static class DatabaseSeeder
         await db.Database.MigrateAsync(cancellationToken);
 
         var airportsAdded = await SeedAirportsAsync(db, cancellationToken);
-        var flightsAdded = await SeedFlightsAsync(db, logger, cancellationToken);
+        var currency = scope.ServiceProvider
+            .GetRequiredService<IConfiguration>()
+            .GetValue<string>("Fares:Currency") ?? FlightSeedData.DefaultCurrency;
+
+        var flightsAdded = await SeedFlightsAsync(db, logger, currency, cancellationToken);
 
         if (airportsAdded == 0 && flightsAdded == 0)
         {
@@ -86,6 +91,7 @@ public static class DatabaseSeeder
     private static async Task<int> SeedFlightsAsync(
         AppDbContext db,
         ILogger logger,
+        string currency,
         CancellationToken cancellationToken)
     {
         var airports = await db.Airports.AsNoTracking().ToListAsync(cancellationToken);
@@ -119,7 +125,7 @@ public static class DatabaseSeeder
             .Select(f => (f.FlightNumber, f.DepartureTimeUtc))
             .ToHashSet();
 
-        var flights = FlightSeedData.Generate(airportIds, timeZones, existingKeys, startDate);
+        var flights = FlightSeedData.Generate(airportIds, timeZones, existingKeys, startDate, currency);
         if (flights.Count == 0)
         {
             return 0;

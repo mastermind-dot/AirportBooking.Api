@@ -13,8 +13,6 @@ public sealed class CreateBookingRequestValidator : AbstractValidator<CreateBook
         RuleFor(x => x.FlightId)
             .NotEmpty().WithMessage(_ => text["Booking.FlightRequired"]);
 
-        RuleFor(x => x.Cabin).IsInEnum();
-
         RuleFor(x => x.ContactEmail)
             .NotEmpty().WithMessage(_ => text["Booking.ContactEmail"])
             .EmailAddress().WithMessage(_ => text["Invalid.Email"])

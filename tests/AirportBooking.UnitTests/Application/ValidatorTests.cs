@@ -87,7 +87,7 @@ public class ValidatorTests
     // ---------- bookings ----------
 
     private static CreateBookingRequest Booking(params PassengerRequest[] passengers) =>
-        new(Guid.NewGuid(), CabinClass.Economy, "contact@example.cd", null, passengers);
+        new(Guid.NewGuid(), "contact@example.cd", null, passengers);
 
     [Fact]
     public void A_booking_needs_at_least_one_passenger()

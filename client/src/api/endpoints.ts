@@ -48,7 +48,6 @@ export const flightsApi = {
 export const bookingsApi = {
   create: (body: {
     flightId: string;
-    cabin: 'Economy';
     contactEmail: string;
     contactPhone?: string | null;
     passengers: PassengerInput[];

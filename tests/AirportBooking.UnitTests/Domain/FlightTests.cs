@@ -1,5 +1,4 @@
 using AirportBooking.Domain.Entities;
-using AirportBooking.Domain.Enums;
 using AirportBooking.Domain.Exceptions;
 
 namespace AirportBooking.UnitTests.Domain;
@@ -27,53 +26,29 @@ public class FlightTests
     // ---------- pricing ----------
 
     [Theory]
-    [InlineData(CabinClass.Economy, 154.00)]
-    [InlineData(CabinClass.PremiumEconomy, 246.40)]
-    [InlineData(CabinClass.Business, 431.20)]
-    [InlineData(CabinClass.First, 693.00)]
-    public void PriceFor_applies_the_cabin_multiplier(CabinClass cabin, decimal expected)
+    [InlineData(1, 154)]
+    [InlineData(2, 308)]
+    [InlineData(9, 1386)]
+    public void TotalFor_multiplies_the_fare_by_the_passenger_count(int passengers, decimal expected)
     {
-        Assert.Equal(expected, Sd360().PriceFor(cabin));
-    }
-
-    [Fact]
-    public void PriceFor_rounds_to_cents_away_from_zero()
-    {
-        // 100.005 * 1.6 = 160.008 -> 160.01, not 160.00. Banker's rounding would
-        // give the customer a cent here and take one somewhere else; fares are
-        // quoted, so they round the same way every time.
-        var flight = Sd360(basePrice: 100.005m);
-
-        Assert.Equal(160.01m, flight.PriceFor(CabinClass.PremiumEconomy));
-    }
-
-    [Fact]
-    public void TotalFor_multiplies_the_rounded_fare_by_the_passenger_count()
-    {
-        // Rounding happens per passenger, then multiplies. The alternative —
-        // rounding the total — drifts from what each passenger is quoted.
-        Assert.Equal(431.20m * 2, Sd360().TotalFor(CabinClass.Business, 2));
+        Assert.Equal(expected, Sd360().TotalFor(passengers));
     }
 
     [Fact]
     public void TotalFor_rejects_a_booking_with_no_passengers()
     {
-        Assert.Throws<DomainException>(() => Sd360().TotalFor(CabinClass.Economy, 0));
+        Assert.Throws<DomainException>(() => Sd360().TotalFor(0));
     }
 
     [Fact]
-    public void MultiplierFor_matches_PriceFor_so_SQL_filtering_agrees_with_display()
+    public void The_fare_the_search_filters_on_is_the_fare_the_customer_pays()
     {
-        // Search filters on BasePrice * MultiplierFor(cabin) in SQL, while the
-        // page shows PriceFor(cabin). If these ever diverge, a flight can be
-        // filtered in and then displayed at a price outside the filter.
+        // Search filters and sorts on BasePrice in SQL; the booking charges
+        // TotalFor. With one cabin these are the same number, and this test is
+        // what keeps them that way if a fare concept is ever reintroduced.
         var flight = Sd360(basePrice: 199m);
 
-        foreach (var cabin in Enum.GetValues<CabinClass>())
-        {
-            var viaMultiplier = Math.Round(199m * Flight.MultiplierFor(cabin), 2, MidpointRounding.AwayFromZero);
-            Assert.Equal(flight.PriceFor(cabin), viaMultiplier);
-        }
+        Assert.Equal(flight.BasePrice, flight.TotalFor(1));
     }
 
     // ---------- seat inventory ----------

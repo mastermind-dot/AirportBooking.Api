@@ -5,7 +5,6 @@
  * JsonStringEnumConverter — so these are string unions rather than numbers.
  */
 
-export type CabinClass = 'Economy' | 'PremiumEconomy' | 'Business' | 'First';
 export type BookingStatus = 'Pending' | 'Confirmed' | 'Cancelled' | 'Failed';
 export type PaymentStatus = 'Pending' | 'Succeeded' | 'Failed' | 'Refunded';
 export type CharterKind = 'Passenger' | 'Cargo';
@@ -49,7 +48,6 @@ export interface FlightSummary {
   durationMinutes: number;
   stops: number;
   isDirect: boolean;
-  cabin: CabinClass;
   pricePerPassenger: number;
   totalPrice: number;
   currency: string;
@@ -95,7 +93,6 @@ export interface Booking {
   id: string;
   reference: string;
   status: BookingStatus;
-  cabin: CabinClass;
   totalAmount: number;
   currency: string;
   contactEmail: string;
@@ -112,7 +109,6 @@ export interface BookingSummary {
   id: string;
   reference: string;
   status: BookingStatus;
-  cabin: CabinClass;
   totalAmount: number;
   currency: string;
   passengerCount: number;

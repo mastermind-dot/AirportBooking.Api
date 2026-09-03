@@ -15,7 +15,6 @@ public class BookingTests
         new(
             userId: Guid.NewGuid(),
             flightId: Guid.NewGuid(),
-            cabinClass: CabinClass.Economy,
             totalAmount: total,
             currency: "USD",
             contactEmail: "passager@example.cd");

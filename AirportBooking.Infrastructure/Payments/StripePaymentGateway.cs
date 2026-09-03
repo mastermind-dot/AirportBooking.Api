@@ -67,11 +67,20 @@ public sealed class StripePaymentGateway : IPaymentGateway
             ReceiptEmail = receiptEmail,
             Description = description,
 
-            // Lets Stripe offer whatever methods are enabled on the account —
-            // cards, iDEAL, Bancontact — without this code enumerating them.
+            // Stripe still offers whatever methods are enabled on the account,
+            // but only those that complete on the page.
+            //
+            // AllowRedirects "never" is what removes the return_url requirement.
+            // With "always", Stripe mandates a return_url at confirmation, and
+            // the intent then depends on every caller remembering to supply one
+            // — a coupling that fails at the moment of payment and only for the
+            // caller that forgot. Redirect methods (Link, Amazon Pay) are worth
+            // little to customers paying for a Goma-Bukavu seat, so the trade is
+            // a narrower method list for a constraint that cannot be broken.
             AutomaticPaymentMethods = new PaymentIntentAutomaticPaymentMethodsOptions
             {
-                Enabled = true
+                Enabled = true,
+                AllowRedirects = "never"
             }
         };
 

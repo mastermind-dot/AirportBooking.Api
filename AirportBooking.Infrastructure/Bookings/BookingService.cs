@@ -73,14 +73,13 @@ public sealed class BookingService : IBookingService
             // The total comes from the flight's stored fare, never from the
             // request. This is the single line that makes price tampering
             // impossible rather than merely discouraged.
-            var total = flight.TotalFor(request.Cabin, passengerCount);
+            var total = flight.TotalFor(passengerCount);
 
             flight.ReserveSeats(passengerCount);
 
             var booking = new Booking(
                 userId,
                 flight.Id,
-                request.Cabin,
                 total,
                 flight.Currency,
                 request.ContactEmail.Trim(),
@@ -161,7 +160,6 @@ public sealed class BookingService : IBookingService
                 b.Id,
                 b.Reference,
                 b.Status,
-                b.CabinClass,
                 b.TotalAmount,
                 b.Currency,
                 b.Passengers.Count,
@@ -281,7 +279,6 @@ public sealed class BookingService : IBookingService
         new(booking.Id,
             booking.Reference,
             booking.Status,
-            booking.CabinClass,
             booking.TotalAmount,
             booking.Currency,
             booking.ContactEmail,
@@ -310,7 +307,6 @@ public sealed class BookingService : IBookingService
         Guid Id,
         string Reference,
         BookingStatus Status,
-        CabinClass Cabin,
         decimal TotalAmount,
         string Currency,
         int PassengerCount,
@@ -337,7 +333,6 @@ public sealed class BookingService : IBookingService
             row.Id,
             row.Reference,
             row.Status,
-            row.Cabin,
             row.TotalAmount,
             row.Currency,
             row.PassengerCount,

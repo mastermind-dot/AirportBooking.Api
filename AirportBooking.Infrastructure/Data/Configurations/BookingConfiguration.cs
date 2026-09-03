@@ -22,7 +22,6 @@ public class BookingConfiguration : IEntityTypeConfiguration<Booking>
         // can silently turn every Cancelled booking into a Confirmed one, and
         // "Confirmed" in a psql session beats decoding a 1.
         builder.Property(b => b.Status).HasConversion<string>().HasMaxLength(16).IsRequired();
-        builder.Property(b => b.CabinClass).HasConversion<string>().HasMaxLength(16).IsRequired();
 
         // Restrict, not Cascade: a booking is a financial record. Deleting a
         // user must not silently erase what they paid for — close the account

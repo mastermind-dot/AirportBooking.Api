@@ -1,5 +1,3 @@
-using AirportBooking.Domain.Enums;
-
 namespace AirportBooking.Application.DTOs.Flights;
 
 public enum FlightSortField
@@ -28,9 +26,7 @@ public sealed class FlightSearchRequest
 
     public int Passengers { get; set; } = 1;
 
-    public CabinClass Cabin { get; set; } = CabinClass.Economy;
-
-    /// <summary>Per-passenger price bounds in the flight's currency, for the chosen cabin.</summary>
+    /// <summary>Per-passenger price bounds in the flight's currency.</summary>
     public decimal? MinPrice { get; set; }
 
     public decimal? MaxPrice { get; set; }
@@ -84,16 +80,12 @@ public sealed record FlightSummaryDto(
     int DurationMinutes,
     int Stops,
     bool IsDirect,
-    CabinClass Cabin,
     decimal PricePerPassenger,
     decimal TotalPrice,
     string Currency,
     int AvailableSeats);
 
-/// <summary>
-/// The detail view. Adds capacity and the full fare table so the page can offer
-/// a cabin choice without a second round trip.
-/// </summary>
+/// <summary>The detail view. Adds capacity to what the list already shows.</summary>
 public sealed record FlightDetailsDto(
     Guid Id,
     string FlightNumber,
@@ -112,4 +104,4 @@ public sealed record FlightDetailsDto(
     int TotalSeats,
     int AvailableSeats,
     string Currency,
-    IReadOnlyDictionary<string, decimal> FaresByCabin);
+    decimal Fare);

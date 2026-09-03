@@ -93,7 +93,7 @@ public sealed class PaymentService : IPaymentService
             idempotencyKey: $"booking-intent-{booking.Id}",
             metadata,
             receiptEmail: booking.ContactEmail,
-            description: $"SkyBook booking {booking.Reference}",
+            description: $"Malu Aviation booking {booking.Reference}",
             cancellationToken);
 
         if (created.IsFailure)

@@ -11,7 +11,6 @@ namespace AirportBooking.Application.DTOs.Bookings;
 /// </summary>
 public sealed record CreateBookingRequest(
     Guid FlightId,
-    CabinClass Cabin,
     string ContactEmail,
     string? ContactPhone,
     IReadOnlyList<PassengerRequest> Passengers);
@@ -54,7 +53,6 @@ public sealed record BookingDto(
     Guid Id,
     string Reference,
     BookingStatus Status,
-    CabinClass Cabin,
     decimal TotalAmount,
     string Currency,
     string ContactEmail,
@@ -71,7 +69,6 @@ public sealed record BookingSummaryDto(
     Guid Id,
     string Reference,
     BookingStatus Status,
-    CabinClass Cabin,
     decimal TotalAmount,
     string Currency,
     int PassengerCount,
