@@ -1,9 +1,14 @@
 namespace AirportBooking.Infrastructure.Data.Seed;
 
 /// <summary>
-/// Reference airports. Real IATA codes and real IANA time zones, because the
-/// search results show local departure times — seeding "Europe/Brussels" as
-/// something invented would break every displayed time.
+/// The airports Malu Aviation actually works with: the two company bases, the
+/// eastern DRC network the Goma SD360s serve, the larger domestic fields the
+/// G159 reaches on charter, and the three regional capitals next door.
+///
+/// The DRC spans two time zones. Kinshasa, Kongo-Central and Équateur keep
+/// UTC+1 (Africa/Kinshasa); the Kivus, Ituri, Tshopo, Maniema, the Kasaïs and
+/// Katanga keep UTC+2 (Africa/Lubumbashi). Getting this wrong would show every
+/// eastern departure an hour out.
 /// </summary>
 internal static class AirportSeedData
 {
@@ -16,43 +21,30 @@ internal static class AirportSeedData
 
     internal static readonly AirportDefinition[] Airports =
     [
-        // Belgium
-        new("BRU", "Brussels Airport",                  "Brussels",   "BE", "Europe/Brussels"),
-        new("CRL", "Brussels South Charleroi Airport",  "Charleroi",  "BE", "Europe/Brussels"),
+        // Company bases
+        new("GOM", "Goma International Airport",        "Goma",        "CD", "Africa/Lubumbashi"),
+        new("NLO", "Ndolo Airport",                     "Kinshasa",    "CD", "Africa/Kinshasa"),
+        new("FIH", "N'djili International Airport",     "Kinshasa",    "CD", "Africa/Kinshasa"),
 
-        // Western Europe
-        new("AMS", "Amsterdam Airport Schiphol",        "Amsterdam",  "NL", "Europe/Amsterdam"),
-        new("CDG", "Paris Charles de Gaulle Airport",   "Paris",      "FR", "Europe/Paris"),
-        new("ORY", "Paris Orly Airport",                "Paris",      "FR", "Europe/Paris"),
-        new("LHR", "London Heathrow Airport",           "London",     "GB", "Europe/London"),
-        new("DUB", "Dublin Airport",                    "Dublin",     "IE", "Europe/Dublin"),
-        new("LUX", "Luxembourg Findel Airport",         "Luxembourg", "LU", "Europe/Luxembourg"),
+        // Eastern DRC — the scheduled SD360 network out of Goma
+        new("BKY", "Kavumu Airport",                    "Bukavu",      "CD", "Africa/Lubumbashi"),
+        new("BNC", "Mavivi Airport",                    "Beni",        "CD", "Africa/Lubumbashi"),
+        new("RUE", "Rughenda Airfield",                 "Butembo",     "CD", "Africa/Lubumbashi"),
+        new("BUX", "Bunia Airport",                     "Bunia",       "CD", "Africa/Lubumbashi"),
+        new("FKI", "Bangoka International Airport",     "Kisangani",   "CD", "Africa/Lubumbashi"),
+        new("KND", "Kindu Airport",                     "Kindu",       "CD", "Africa/Lubumbashi"),
 
-        // Central Europe
-        new("FRA", "Frankfurt Airport",                 "Frankfurt",  "DE", "Europe/Berlin"),
-        new("MUC", "Munich Airport",                    "Munich",     "DE", "Europe/Berlin"),
-        new("ZRH", "Zurich Airport",                    "Zurich",     "CH", "Europe/Zurich"),
-        new("VIE", "Vienna International Airport",      "Vienna",     "AT", "Europe/Vienna"),
+        // Wider domestic network — charter territory for the G159
+        new("FBM", "Lubumbashi International Airport",  "Lubumbashi",  "CD", "Africa/Lubumbashi"),
+        new("MJM", "Mbuji-Mayi Airport",                "Mbuji-Mayi",  "CD", "Africa/Lubumbashi"),
+        new("KGA", "Kananga Airport",                   "Kananga",     "CD", "Africa/Lubumbashi"),
+        new("FMI", "Kalemie Airport",                   "Kalemie",     "CD", "Africa/Lubumbashi"),
+        new("MDK", "Mbandaka Airport",                  "Mbandaka",    "CD", "Africa/Kinshasa"),
+        new("MAT", "Tshimpi Airport",                   "Matadi",      "CD", "Africa/Kinshasa"),
 
-        // Southern Europe
-        new("MAD", "Adolfo Suarez Madrid-Barajas",      "Madrid",     "ES", "Europe/Madrid"),
-        new("BCN", "Josep Tarradellas Barcelona-El Prat", "Barcelona", "ES", "Europe/Madrid"),
-        new("FCO", "Rome Fiumicino Airport",            "Rome",       "IT", "Europe/Rome"),
-        new("MXP", "Milan Malpensa Airport",            "Milan",      "IT", "Europe/Rome"),
-        new("LIS", "Humberto Delgado Airport",          "Lisbon",     "PT", "Europe/Lisbon"),
-        new("ATH", "Athens International Airport",      "Athens",     "GR", "Europe/Athens"),
-
-        // Northern Europe
-        new("CPH", "Copenhagen Airport",                "Copenhagen", "DK", "Europe/Copenhagen"),
-        new("ARN", "Stockholm Arlanda Airport",         "Stockholm",  "SE", "Europe/Stockholm"),
-        new("OSL", "Oslo Gardermoen Airport",           "Oslo",       "NO", "Europe/Oslo"),
-
-        // Beyond Europe
-        new("IST", "Istanbul Airport",                  "Istanbul",   "TR", "Europe/Istanbul"),
-        new("DXB", "Dubai International Airport",       "Dubai",      "AE", "Asia/Dubai"),
-        new("JFK", "John F. Kennedy International",     "New York",   "US", "America/New_York"),
-        new("YUL", "Montreal-Trudeau International",    "Montreal",   "CA", "America/Toronto"),
-        new("CMN", "Mohammed V International Airport",  "Casablanca", "MA", "Africa/Casablanca"),
-        new("RAK", "Marrakesh Menara Airport",          "Marrakesh",  "MA", "Africa/Casablanca")
+        // Regional neighbours
+        new("KGL", "Kigali International Airport",      "Kigali",      "RW", "Africa/Kigali"),
+        new("EBB", "Entebbe International Airport",     "Entebbe",     "UG", "Africa/Kampala"),
+        new("BJM", "Bujumbura International Airport",   "Bujumbura",   "BI", "Africa/Bujumbura")
     ];
 }

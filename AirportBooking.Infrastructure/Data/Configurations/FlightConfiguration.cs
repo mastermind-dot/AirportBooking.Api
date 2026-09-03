@@ -36,7 +36,10 @@ public class FlightConfiguration : IEntityTypeConfiguration<Flight>
         // of these columns, but not a trailing one.
         builder.HasIndex(f => new { f.OriginAirportId, f.DestinationAirportId, f.DepartureTimeUtc });
         builder.HasIndex(f => f.DepartureTimeUtc);
+        builder.Property(f => f.AircraftType).HasMaxLength(48).IsRequired();
+
         builder.HasIndex(f => f.AirlineIataCode);
+        builder.HasIndex(f => f.AircraftType);
 
         // Postgres keeps a hidden xmin column that changes on every UPDATE.
         // Using it as a concurrency token means two people booking the last

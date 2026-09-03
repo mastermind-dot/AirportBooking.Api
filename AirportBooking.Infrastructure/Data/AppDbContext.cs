@@ -24,6 +24,7 @@ public class AppDbContext : IdentityDbContext<ApplicationUser, IdentityRole<Guid
     public DbSet<Passenger> Passengers => Set<Passenger>();
     public DbSet<Payment> Payments => Set<Payment>();
     public DbSet<RefreshToken> RefreshTokens => Set<RefreshToken>();
+    public DbSet<CharterRequest> CharterRequests => Set<CharterRequest>();
 
     protected override void OnModelCreating(ModelBuilder builder)
     {

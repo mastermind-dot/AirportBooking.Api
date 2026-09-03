@@ -2,6 +2,7 @@ using AirportBooking.Application.Interfaces;
 using AirportBooking.Domain.Entities;
 using AirportBooking.Infrastructure.Data;
 using AirportBooking.Infrastructure.Bookings;
+using AirportBooking.Infrastructure.Charters;
 using AirportBooking.Infrastructure.Flights;
 using AirportBooking.Infrastructure.Identity;
 using AirportBooking.Infrastructure.Payments;
@@ -51,6 +52,7 @@ public static class DependencyInjection
         services.Configure<StripeOptions>(configuration.GetSection(StripeOptions.SectionName));
         services.AddScoped<IPaymentGateway, StripePaymentGateway>();
         services.AddScoped<IPaymentService, PaymentService>();
+        services.AddScoped<ICharterService, CharterService>();
 
         return services;
     }

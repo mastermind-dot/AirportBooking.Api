@@ -1,0 +1,257 @@
+{
+  "brand": {
+    "name": "Malu Aviation",
+    "tagline": "Vols passagers et cargo en République Démocratique du Congo"
+  },
+  "nav": {
+    "home": "Accueil",
+    "about": "Qui sommes-nous",
+    "fleet": "Nos avions",
+    "services": "Nos services",
+    "contact": "Nos contacts",
+    "menu": "Menu",
+    "book": "Réserver",
+    "charter": "Devis charter",
+    "signIn": "Connexion",
+    "signOut": "Déconnexion",
+    "myBookings": "Mes réservations"
+  },
+  "home": {
+    "eyebrow": "Depuis 1993",
+    "heroTitle": "Relier la RDC, piste après piste",
+    "heroLead": "Vols cargo et charters passagers au départ de Kinshasa et de Goma, vers les localités que la route n'atteint pas.",
+    "ctaFleet": "Découvrir nos avions",
+    "ctaContact": "Demander un devis",
+    "statsYears": "ans d'expérience",
+    "statsAircraft": "avions en exploitation",
+    "statsBases": "bases opérationnelles",
+    "statsSeats": "sièges par vol",
+    "aboutTitle": "Une compagnie congolaise, née de deux pilotes",
+    "aboutLead": "Malu Aviation est née en 1993 de la volonté de deux pilotes de ligne. Le premier appareil exploité fut un Douglas DC3 TP pris en location en Afrique du Sud.",
+    "aboutMore": "En savoir plus",
+    "servicesTitle": "Nos services",
+    "servicesLead": "Trois façons de voler avec nous, sur toute l'étendue du territoire.",
+    "fleetTitle": "Nos avions",
+    "fleetLead": "Trois appareils, deux bases, un même standard d'exploitation.",
+    "safetyTitle": "La sécurité comme moteur",
+    "safetyBody": "La sécurité, la sûreté et le professionnalisme régissent le fonctionnement de la compagnie, de la sentinelle au dirigeant responsable. Notre exploitation suit les recommandations de l'Autorité de l'Aviation Civile (AAC) et de l'Organisation de l'Aviation Civile Internationale (OACI).",
+    "contactTitle": "Parlons de votre vol",
+    "contactLead": "Passagers ou cargo, nos équipes de Kinshasa et de Goma vous répondent directement."
+  },
+  "about": {
+    "title": "Qui sommes-nous",
+    "p1": "Malu Aviation est une compagnie née en 1993 par la volonté de deux pilotes de ligne. Le premier avion qu'ils ont exploité est un Douglas DC3 TP pris en location en Afrique du Sud.",
+    "p2": "Depuis lors ils ont exploité plusieurs types d'avions, pour à ce jour disposer de deux Short 360 et d'un Gulfstream G159, en exploitation à partir de deux bases : Kinshasa, siège social de la compagnie, et Goma où sont basés les deux SD360.",
+    "p3": "La compagnie a évolué depuis sa création en suivant les recommandations de l'Autorité de l'Aviation Civile (AAC) et de l'Organisation de l'Aviation Civile Internationale (OACI).",
+    "p4": "La sécurité, la sûreté et le professionnalisme sont le moteur qui régit le fonctionnement de la compagnie et administre ses collaborateurs, de la sentinelle au dirigeant responsable, garant de l'application de ces critères.",
+    "p5": "Notre plus grand souhait est de vous avoir à bord ou de transporter votre cargo à destination en toute sécurité et au coût le plus compétitif.",
+    "timelineTitle": "Repères",
+    "founded": "Création de la compagnie par deux pilotes de ligne",
+    "firstAircraft": "Douglas DC3 TP, premier appareil exploité",
+    "today": "Deux Short SD360 à Goma, un Gulfstream G159 à Kinshasa"
+  },
+  "services": {
+    "title": "Nos services",
+    "lead": "Passagers ou cargo, sur pistes longues ou courtes.",
+    "passengerSd360": {
+      "name": "Vol passager — Short 360",
+      "body": "Avec une capacité de 30 sièges, le Short 360 vous permet un déplacement en toute sécurité sur toute l'étendue de la RDC. Sa capacité à décoller et atterrir sur des pistes courtes et non asphaltées en fait un avion incontournable pour désenclaver les localités non accessibles par route."
+    },
+    "passengerG159": {
+      "name": "Vol passager — Gulfstream G159",
+      "body": "Le Gulfstream G159 est un avion performant et très rapide, pouvant parcourir des distances de plus de 1 800 km avec 24 passagers à bord, dans un confort optimal, à plus de 450 km/h et à une altitude proche des avions de ligne."
+    },
+    "cargo": {
+      "name": "Vol cargo",
+      "body": "Avec son volume de 30 m³ et sa large porte cargo, le Short 360 transportera votre cargo à bon port."
+    }
+  },
+  "fleet": {
+    "title": "Nos avions",
+    "lead": "Trois appareils exploités depuis Kinshasa et Goma.",
+    "viewDetails": "Voir la fiche",
+    "backToFleet": "Retour à la flotte",
+    "basedAt": "Basé à",
+    "inService": "en exploitation",
+    "unitOne": "appareil",
+    "unitMany": "appareils",
+    "specs": {
+      "title": "Caractéristiques",
+      "passengers": "Passagers",
+      "cargo": "Cargo",
+      "cruise": "Vitesse de croisière",
+      "endurance": "Autonomie",
+      "range": "Distance franchissable",
+      "volume": "Volume de soute",
+      "base": "Base"
+    },
+    "units": {
+      "seats": "sièges",
+      "kg": "kg",
+      "kmh": "km/h",
+      "hours": "heures de vol",
+      "km": "km",
+      "m3": "m³"
+    },
+    "highlights": {
+      "title": "Points forts",
+      "shortField": "Décolle et atterrit sur pistes courtes et non asphaltées",
+      "cargoDoor": "Large porte cargo et soute de 30 m³",
+      "remoteAccess": "Dessert les localités non accessibles par route",
+      "speed": "Plus de 450 km/h en croisière",
+      "altitude": "Altitude proche des avions de ligne",
+      "comfort": "24 passagers dans un confort optimal"
+    },
+    "cta": "Demander un devis pour cet appareil"
+  },
+  "contact": {
+    "title": "Nos contacts",
+    "lead": "Deux bases, deux équipes. Écrivez-nous ou appelez directement.",
+    "generalTitle": "Adresses générales",
+    "roles": {
+      "dirigeant": "Dirigeant responsable",
+      "commercial": "Directeur commercial",
+      "operations": "Responsable des opérations",
+      "operationsAir": "Responsable des opérations aériennes",
+      "commercialResp": "Responsable commercial"
+    },
+    "phone": "Téléphone",
+    "email": "E-mail"
+  },
+  "footer": {
+    "rights": "Tous droits réservés.",
+    "sections": "Navigation",
+    "contactUs": "Nous contacter"
+  },
+  "language": {
+    "label": "Langue",
+    "fr": "Français",
+    "en": "English"
+  },
+  "search": {
+    "eyebrow": "Vols réguliers",
+    "title": "Réserver un vol",
+    "lead": "Nos lignes régulières partent de Goma vers l’est de la RDC. Pour toute autre destination, demandez un devis charter.",
+    "from": "Départ",
+    "to": "Arrivée",
+    "date": "Date",
+    "passengers": "Passagers",
+    "choose": "Choisir…",
+    "submit": "Rechercher",
+    "loading": "Recherche en cours…",
+    "failed": "La recherche a échoué.",
+    "resultCount_one": "{{count}} vol trouvé",
+    "resultCount_other": "{{count}} vols trouvés",
+    "noResults": "Aucun vol régulier ce jour-là.",
+    "noResultsHelp": "Cette liaison n’est pas desservie ce jour-là, ou pas en ligne régulière. Nous pouvons l’opérer en charter.",
+    "askCharter": "Demander un devis",
+    "prompt": "Choisissez une destination et une date pour voir les vols.",
+    "sort": "Trier par",
+    "sortDeparture": "Heure de départ",
+    "sortPrice": "Prix",
+    "sortDuration": "Durée",
+    "direct": "Direct",
+    "stops_one": "{{count}} escale",
+    "stops_other": "{{count}} escales",
+    "seatsLeft_one": "Plus qu’{{count}} place",
+    "seatsLeft_other": "Plus que {{count}} places",
+    "perPassenger": "par passager",
+    "select": "Choisir"
+  },
+  "charter": {
+    "title": "Demander un devis charter",
+    "lead": "Passagers ou cargo, vers une piste desservie ou non. Décrivez le vol, nos équipes reviennent vers vous avec un prix.",
+    "submit": "Envoyer la demande",
+    "sending": "Envoi…",
+    "another": "Faire une autre demande",
+    "failed": "L’envoi a échoué. Réessayez.",
+    "tooMany": "Trop de demandes depuis cette adresse. Réessayez dans une heure, ou appelez-nous.",
+    "sentTitle": "Demande enregistrée",
+    "sentBody": "Conservez cette référence. Nos équipes vous répondent avec un devis.",
+    "noPriceNote": "Aucun paiement à cette étape : le prix d’un charter dépend du routage, des autorisations et du carburant, et vous est communiqué par nos équipes.",
+    "kinds": {
+      "Passenger": "Passagers",
+      "Cargo": "Cargo"
+    },
+    "aircraft": {
+      "Any": "Peu importe",
+      "ShortSd360": "Short SD360 (30 pax / 3 500 kg)",
+      "GulfstreamG159": "Gulfstream G159 (24 pax)"
+    },
+    "form": {
+      "kind": "Type de vol",
+      "name": "Nom complet",
+      "email": "E-mail",
+      "phone": "Téléphone",
+      "company": "Société",
+      "origin": "Départ",
+      "originHint": "Ville, aéroport ou nom de la piste",
+      "destination": "Destination",
+      "destinationHint": "Même si la piste n’a pas de code IATA",
+      "departureDate": "Date de départ",
+      "returnDate": "Date de retour (optionnel)",
+      "aircraft": "Appareil souhaité",
+      "passengers": "Nombre de passagers",
+      "cargoWeight": "Poids du cargo (kg)",
+      "cargoWeightHint": "Jusqu’à 3 500 kg par rotation",
+      "cargoDescription": "Nature du cargo",
+      "message": "Précisions"
+    }
+  },
+  "auth": {
+    "signInTitle": "Connexion",
+    "signUpTitle": "Créer un compte",
+    "email": "E-mail",
+    "password": "Mot de passe",
+    "firstName": "Prénom",
+    "lastName": "Nom",
+    "signIn": "Se connecter",
+    "signUp": "Créer le compte",
+    "signingIn": "Connexion…",
+    "noAccount": "Pas encore de compte ?",
+    "hasAccount": "Déjà un compte ?",
+    "failed": "Connexion impossible.",
+    "passwordHint": "Au moins 10 caractères, avec majuscule, minuscule et chiffre."
+  },
+  "booking": {
+    "title": "Vos passagers",
+    "lead": "Les noms doivent correspondre aux documents de voyage.",
+    "passenger": "Passager {{n}}",
+    "firstName": "Prénom",
+    "lastName": "Nom",
+    "dateOfBirth": "Date de naissance",
+    "nationality": "Nationalité (code à 2 lettres)",
+    "passportNumber": "Numéro de passeport",
+    "passportExpiry": "Expiration du passeport",
+    "contactEmail": "E-mail de contact",
+    "contactPhone": "Téléphone",
+    "submit": "Confirmer la réservation",
+    "submitting": "Enregistrement…",
+    "total": "Total",
+    "createdTitle": "Réservation enregistrée",
+    "createdBody": "Votre réservation est en attente de paiement.",
+    "failed": "La réservation a échoué.",
+    "signInFirst": "Connectez-vous pour réserver.",
+    "status": {
+      "Pending": "En attente de paiement",
+      "Confirmed": "Confirmée",
+      "Cancelled": "Annulée",
+      "Failed": "Échouée"
+    }
+  },
+  "payment": {
+    "title": "Paiement",
+    "pay": "Payer maintenant",
+    "processing": "Traitement…",
+    "preparing": "Préparation du paiement…",
+    "confirming": "Paiement reçu, confirmation de votre réservation…",
+    "confirmedTitle": "Réservation confirmée",
+    "confirmedBody": "Votre paiement est accepté et votre place est réservée.",
+    "declined": "Le paiement a été refusé. Vérifiez vos informations ou essayez une autre carte.",
+    "failed": "Le paiement n’a pas pu être préparé.",
+    "unavailable": "Le paiement en ligne est momentanément indisponible. Contactez-nous pour régler autrement.",
+    "noKey": "Le paiement en ligne n’est pas configuré sur ce site.",
+    "slowWebhook": "Votre paiement est bien passé. La confirmation prend un instant : elle apparaîtra dans vos réservations.",
+    "secureNote": "Vos informations de carte sont saisies directement chez Stripe et ne transitent jamais par nos serveurs."
+  }
+}

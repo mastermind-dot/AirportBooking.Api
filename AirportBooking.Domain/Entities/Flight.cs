@@ -33,7 +33,8 @@ public class Flight
         decimal basePrice,
         int totalSeats,
         int stops = 0,
-        string currency = "EUR")
+        string currency = "USD",
+        string aircraftType = "Short SD360")
     {
         if (arrivalTimeUtc <= departureTimeUtc)
             throw new DomainException("A flight cannot arrive before it departs.");
@@ -55,6 +56,7 @@ public class Flight
         TotalSeats = totalSeats;
         AvailableSeats = totalSeats;
         Stops = stops;
+        AircraftType = aircraftType;
     }
 
     public Guid Id { get; private set; }
@@ -90,6 +92,13 @@ public class Flight
 
     /// <summary>0 for direct flights. Drives the "direct only" filter.</summary>
     public int Stops { get; private set; }
+
+    /// <summary>
+    /// The airframe, e.g. "Short SD360". With a single operator the airline
+    /// filter says nothing, but which aircraft flies a route says a great deal:
+    /// it is what tells a passenger whether the strip is paved.
+    /// </summary>
+    public string AircraftType { get; private set; } = null!;
 
     public TimeSpan Duration => ArrivalTimeUtc - DepartureTimeUtc;
 

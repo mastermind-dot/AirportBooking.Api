@@ -1,0 +1,257 @@
+{
+  "brand": {
+    "name": "Malu Aviation",
+    "tagline": "Passenger and cargo flights across the Democratic Republic of the Congo"
+  },
+  "nav": {
+    "home": "Home",
+    "about": "About us",
+    "fleet": "Our aircraft",
+    "services": "Our services",
+    "contact": "Contact",
+    "menu": "Menu",
+    "book": "Book",
+    "charter": "Charter quote",
+    "signIn": "Sign in",
+    "signOut": "Sign out",
+    "myBookings": "My bookings"
+  },
+  "home": {
+    "eyebrow": "Since 1993",
+    "heroTitle": "Connecting the DRC, one airstrip at a time",
+    "heroLead": "Cargo flights and passenger charters from Kinshasa and Goma, to the places the road does not reach.",
+    "ctaFleet": "See our aircraft",
+    "ctaContact": "Request a quote",
+    "statsYears": "years of operation",
+    "statsAircraft": "aircraft in service",
+    "statsBases": "operating bases",
+    "statsSeats": "seats per flight",
+    "aboutTitle": "A Congolese airline, started by two pilots",
+    "aboutLead": "Malu Aviation was founded in 1993 by two airline pilots. The first aircraft they operated was a Douglas DC3 TP, leased in South Africa.",
+    "aboutMore": "Read more",
+    "servicesTitle": "Our services",
+    "servicesLead": "Three ways to fly with us, anywhere in the country.",
+    "fleetTitle": "Our aircraft",
+    "fleetLead": "Three aircraft, two bases, one operating standard.",
+    "safetyTitle": "Safety as the engine",
+    "safetyBody": "Safety, security and professionalism govern how the company runs, from the sentry to the accountable manager. Operations follow the recommendations of the Civil Aviation Authority (AAC) and the International Civil Aviation Organization (ICAO).",
+    "contactTitle": "Let's talk about your flight",
+    "contactLead": "Passengers or cargo, our teams in Kinshasa and Goma answer you directly."
+  },
+  "about": {
+    "title": "About us",
+    "p1": "Malu Aviation is a company born in 1993 by the will of two airline pilots. The first plane they operated was a Douglas DC3 TP, hired in South Africa.",
+    "p2": "Since then they have operated several types of aircraft, today having two Short 360 and one Gulfstream G159, operating from two bases: Kinshasa, the headquarters of the company, and Goma, where the two SD360s are based.",
+    "p3": "The company has evolved since its creation following the recommendations of the Civil Aviation Authority (AAC) and the International Civil Aviation Organization (ICAO).",
+    "p4": "Safety, security and professionalism are the engine that governs the operations of the company and administers its employees, from the sentry to the responsible manager who guarantees the application of these criteria.",
+    "p5": "Our greatest wish is to have you on board, or to transport your cargo to its destination safely and at the most competitive cost.",
+    "timelineTitle": "Milestones",
+    "founded": "Company founded by two airline pilots",
+    "firstAircraft": "Douglas DC3 TP, the first aircraft operated",
+    "today": "Two Short SD360 in Goma, one Gulfstream G159 in Kinshasa"
+  },
+  "services": {
+    "title": "Our services",
+    "lead": "Passengers or cargo, on long runways or short ones.",
+    "passengerSd360": {
+      "name": "Passenger flight — Short 360",
+      "body": "With a capacity of 30 seats, the Short 360 lets you travel safely across the whole of the DRC. Its ability to take off and land on short, unpaved runways makes it essential for reaching localities that cannot be accessed by road."
+    },
+    "passengerG159": {
+      "name": "Passenger flight — Gulfstream G159",
+      "body": "The Gulfstream G159 is a fast, capable aircraft able to cover distances of more than 1,800 km with 24 passengers on board, in optimal comfort, at over 450 km/h and at an altitude close to that of airliners."
+    },
+    "cargo": {
+      "name": "Cargo flight",
+      "body": "With its 30 m³ hold and wide cargo door, the Short 360 will carry your freight safely to its destination."
+    }
+  },
+  "fleet": {
+    "title": "Our aircraft",
+    "lead": "Three aircraft operated from Kinshasa and Goma.",
+    "viewDetails": "View details",
+    "backToFleet": "Back to the fleet",
+    "basedAt": "Based at",
+    "inService": "in service",
+    "unitOne": "aircraft",
+    "unitMany": "aircraft",
+    "specs": {
+      "title": "Specifications",
+      "passengers": "Passengers",
+      "cargo": "Cargo",
+      "cruise": "Cruise speed",
+      "endurance": "Endurance",
+      "range": "Range",
+      "volume": "Hold volume",
+      "base": "Base"
+    },
+    "units": {
+      "seats": "seats",
+      "kg": "kg",
+      "kmh": "km/h",
+      "hours": "flight hours",
+      "km": "km",
+      "m3": "m³"
+    },
+    "highlights": {
+      "title": "Highlights",
+      "shortField": "Takes off and lands on short, unpaved runways",
+      "cargoDoor": "Wide cargo door and a 30 m³ hold",
+      "remoteAccess": "Serves localities unreachable by road",
+      "speed": "Over 450 km/h in cruise",
+      "altitude": "Cruises at near-airliner altitude",
+      "comfort": "24 passengers in optimal comfort"
+    },
+    "cta": "Request a quote for this aircraft"
+  },
+  "contact": {
+    "title": "Contact",
+    "lead": "Two bases, two teams. Write to us or call directly.",
+    "generalTitle": "General addresses",
+    "roles": {
+      "dirigeant": "Accountable manager",
+      "commercial": "Commercial director",
+      "operations": "Operations manager",
+      "operationsAir": "Flight operations manager",
+      "commercialResp": "Commercial manager"
+    },
+    "phone": "Phone",
+    "email": "Email"
+  },
+  "footer": {
+    "rights": "All rights reserved.",
+    "sections": "Navigation",
+    "contactUs": "Contact us"
+  },
+  "language": {
+    "label": "Language",
+    "fr": "Français",
+    "en": "English"
+  },
+  "search": {
+    "eyebrow": "Scheduled flights",
+    "title": "Book a flight",
+    "lead": "Our scheduled services run from Goma across eastern DRC. For anywhere else, ask for a charter quote.",
+    "from": "From",
+    "to": "To",
+    "date": "Date",
+    "passengers": "Passengers",
+    "choose": "Choose…",
+    "submit": "Search",
+    "loading": "Searching…",
+    "failed": "The search failed.",
+    "resultCount_one": "{{count}} flight found",
+    "resultCount_other": "{{count}} flights found",
+    "noResults": "No scheduled flight that day.",
+    "noResultsHelp": "That route does not run on this date, or is not a scheduled service at all. We can fly it as a charter.",
+    "askCharter": "Request a quote",
+    "prompt": "Pick a destination and a date to see flights.",
+    "sort": "Sort by",
+    "sortDeparture": "Departure time",
+    "sortPrice": "Price",
+    "sortDuration": "Duration",
+    "direct": "Direct",
+    "stops_one": "{{count}} stop",
+    "stops_other": "{{count}} stops",
+    "seatsLeft_one": "Only {{count}} seat left",
+    "seatsLeft_other": "Only {{count}} seats left",
+    "perPassenger": "per passenger",
+    "select": "Select"
+  },
+  "charter": {
+    "title": "Request a charter quote",
+    "lead": "Passengers or cargo, to a served airstrip or an unserved one. Describe the flight and our teams come back with a price.",
+    "submit": "Send request",
+    "sending": "Sending…",
+    "another": "Make another request",
+    "failed": "The request could not be sent. Try again.",
+    "tooMany": "Too many requests from this address. Try again in an hour, or call us.",
+    "sentTitle": "Request received",
+    "sentBody": "Keep this reference. Our teams will come back to you with a quote.",
+    "noPriceNote": "No payment at this stage: charter pricing depends on routing, permits and fuel, and is quoted to you by our teams.",
+    "kinds": {
+      "Passenger": "Passengers",
+      "Cargo": "Cargo"
+    },
+    "aircraft": {
+      "Any": "No preference",
+      "ShortSd360": "Short SD360 (30 pax / 3,500 kg)",
+      "GulfstreamG159": "Gulfstream G159 (24 pax)"
+    },
+    "form": {
+      "kind": "Type of flight",
+      "name": "Full name",
+      "email": "Email",
+      "phone": "Phone",
+      "company": "Company",
+      "origin": "From",
+      "originHint": "Town, airport or airstrip name",
+      "destination": "To",
+      "destinationHint": "Even if the strip has no IATA code",
+      "departureDate": "Departure date",
+      "returnDate": "Return date (optional)",
+      "aircraft": "Preferred aircraft",
+      "passengers": "Number of passengers",
+      "cargoWeight": "Cargo weight (kg)",
+      "cargoWeightHint": "Up to 3,500 kg per rotation",
+      "cargoDescription": "What is the cargo?",
+      "message": "Anything else"
+    }
+  },
+  "auth": {
+    "signInTitle": "Sign in",
+    "signUpTitle": "Create an account",
+    "email": "Email",
+    "password": "Password",
+    "firstName": "First name",
+    "lastName": "Last name",
+    "signIn": "Sign in",
+    "signUp": "Create account",
+    "signingIn": "Signing in…",
+    "noAccount": "No account yet?",
+    "hasAccount": "Already have an account?",
+    "failed": "Could not sign in.",
+    "passwordHint": "At least 10 characters, with upper case, lower case and a digit."
+  },
+  "booking": {
+    "title": "Your passengers",
+    "lead": "Names must match the travel documents.",
+    "passenger": "Passenger {{n}}",
+    "firstName": "First name",
+    "lastName": "Last name",
+    "dateOfBirth": "Date of birth",
+    "nationality": "Nationality (2-letter code)",
+    "passportNumber": "Passport number",
+    "passportExpiry": "Passport expiry",
+    "contactEmail": "Contact email",
+    "contactPhone": "Phone",
+    "submit": "Confirm booking",
+    "submitting": "Saving…",
+    "total": "Total",
+    "createdTitle": "Booking created",
+    "createdBody": "Your booking is awaiting payment.",
+    "failed": "The booking failed.",
+    "signInFirst": "Sign in to book.",
+    "status": {
+      "Pending": "Awaiting payment",
+      "Confirmed": "Confirmed",
+      "Cancelled": "Cancelled",
+      "Failed": "Failed"
+    }
+  },
+  "payment": {
+    "title": "Payment",
+    "pay": "Pay now",
+    "processing": "Processing…",
+    "preparing": "Preparing payment…",
+    "confirming": "Payment received, confirming your booking…",
+    "confirmedTitle": "Booking confirmed",
+    "confirmedBody": "Your payment went through and your seat is reserved.",
+    "declined": "The payment was declined. Check your details or try another card.",
+    "failed": "The payment could not be prepared.",
+    "unavailable": "Online payment is temporarily unavailable. Contact us to settle another way.",
+    "noKey": "Online payment is not configured on this site.",
+    "slowWebhook": "Your payment went through. Confirmation takes a moment and will appear in your bookings.",
+    "secureNote": "Your card details are entered directly with Stripe and never pass through our servers."
+  }
+}

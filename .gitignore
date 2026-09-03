@@ -361,3 +361,7 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+# Frontend
+client/node_modules/
+client/dist/
+client/.env.local

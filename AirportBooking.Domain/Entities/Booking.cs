@@ -45,7 +45,8 @@ public class Booking
     public Guid Id { get; private set; }
 
     /// <summary>
-    /// Human-readable locator shown to the user, e.g. "SKY-7QK4M2".
+    /// Human-readable locator shown to the user, e.g. "MLU-7QK4M2". Charter
+    /// enquiries use "MLU-Q-" so the two are never confused on a phone call.
     /// Random rather than sequential so one reference never reveals another.
     /// </summary>
     public string Reference { get; private set; } = null!;
@@ -125,6 +126,6 @@ public class Booking
         for (var i = 0; i < chars.Length; i++)
             chars[i] = ReferenceAlphabet[RandomNumberGenerator.GetInt32(ReferenceAlphabet.Length)];
 
-        return $"SKY-{new string(chars)}";
+        return $"MLU-{new string(chars)}";
     }
 }

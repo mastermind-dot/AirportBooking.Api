@@ -167,6 +167,20 @@ public static class ApiServiceCollectionExtensions
                         QueueLimit = 0
                     }));
 
+            // An anonymous endpoint that writes to the database is the obvious
+            // spam target on this API. Five an hour per IP is generous for a
+            // real enquirer and useless to a bot; the queue is zero so a flood
+            // is refused immediately rather than parked in memory.
+            options.AddPolicy(ApiPolicies.CharterRateLimit, context =>
+                RateLimitPartition.GetFixedWindowLimiter(
+                    partitionKey: context.Connection.RemoteIpAddress?.ToString() ?? "unknown",
+                    factory: _ => new FixedWindowRateLimiterOptions
+                    {
+                        PermitLimit = 5,
+                        Window = TimeSpan.FromHours(1),
+                        QueueLimit = 0
+                    }));
+
             options.OnRejected = async (context, token) =>
             {
                 context.HttpContext.Response.Headers.RetryAfter = "60";
