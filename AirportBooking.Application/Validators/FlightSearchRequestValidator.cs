@@ -1,5 +1,6 @@
 using AirportBooking.Application.DTOs.Flights;
 using FluentValidation;
+using Microsoft.Extensions.Localization;
 
 namespace AirportBooking.Application.Validators;
 
@@ -11,26 +12,26 @@ public sealed class FlightSearchRequestValidator : AbstractValidator<FlightSearc
     /// </summary>
     public const int MaxPageSize = 100;
 
-    public FlightSearchRequestValidator()
+    public FlightSearchRequestValidator(IStringLocalizer<ValidationMessages> text)
     {
         RuleFor(x => x.Origin)
-            .NotEmpty().WithMessage("Origin airport is required.")
-            .Length(3).WithMessage("Use a three-letter IATA code, e.g. BRU.");
+            .NotEmpty().WithMessage(_ => text["Search.OriginRequired"])
+            .Length(3).WithMessage(_ => text["Search.IataFormat"]);
 
         RuleFor(x => x.Destination)
-            .NotEmpty().WithMessage("Destination airport is required.")
-            .Length(3).WithMessage("Use a three-letter IATA code, e.g. LHR.");
+            .NotEmpty().WithMessage(_ => text["Search.DestinationRequired"])
+            .Length(3).WithMessage(_ => text["Search.IataFormat"]);
 
         RuleFor(x => x.DepartureDate)
-            .NotEmpty().WithMessage("Departure date is required.")
+            .NotEmpty().WithMessage(_ => text["Search.DateRequired"])
             // Compared in the origin's local calendar terms; a flight earlier
             // today is filtered out by the query, which knows the time zone.
             .GreaterThanOrEqualTo(_ => DateOnly.FromDateTime(DateTime.UtcNow.AddDays(-1)))
-            .WithMessage("Departure date cannot be in the past.");
+            .WithMessage(_ => text["Search.DateInPast"]);
 
         RuleFor(x => x.Passengers)
             .InclusiveBetween(1, 9)
-            .WithMessage("Between 1 and 9 passengers per booking.");
+            .WithMessage(_ => text["Search.PassengerRange"]);
 
         RuleFor(x => x.Cabin).IsInEnum();
         RuleFor(x => x.SortBy).IsInEnum();
@@ -45,26 +46,26 @@ public sealed class FlightSearchRequestValidator : AbstractValidator<FlightSearc
             .Must(x => x.MinPrice <= x.MaxPrice)
             .When(x => x.MinPrice.HasValue && x.MaxPrice.HasValue)
             .WithName("MaxPrice")
-            .WithMessage("Maximum price must be at least the minimum price.");
+            .WithMessage(_ => text["Search.MaxPriceBelowMin"]);
 
         RuleFor(x => x)
             .Must(x => x.DepartAfter < x.DepartBefore)
             .When(x => x.DepartAfter.HasValue && x.DepartBefore.HasValue)
             .WithName("DepartBefore")
-            .WithMessage("The latest departure time must be after the earliest.");
+            .WithMessage(_ => text["Search.TimeWindow"]);
 
         RuleFor(x => x.MaxStops)
             .InclusiveBetween(0, 3).When(x => x.MaxStops.HasValue);
 
         RuleForEach(x => x.Airlines)
-            .Length(2, 3).WithMessage("Airline codes are two or three characters, e.g. SN.")
+            .Length(2, 3).WithMessage(_ => text["Search.AirlineCode"])
             .When(x => x.Airlines is { Length: > 0 });
 
         RuleFor(x => x.Page)
-            .GreaterThanOrEqualTo(1).WithMessage("Page numbering starts at 1.");
+            .GreaterThanOrEqualTo(1).WithMessage(_ => text["Search.PageMin"]);
 
         RuleFor(x => x.PageSize)
             .InclusiveBetween(1, MaxPageSize)
-            .WithMessage($"Page size must be between 1 and {MaxPageSize}.");
+            .WithMessage(_ => string.Format(text["Search.PageSizeRange"], MaxPageSize));
     }
 }

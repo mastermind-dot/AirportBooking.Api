@@ -4,6 +4,36 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/png" href="/images/logo.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!--
+      Content Security Policy for the site itself. The API has its own, far
+      stricter policy: it serves JSON and needs to load nothing at all.
+
+      Stripe requires three specific allowances, and each is here for a reason:
+        script-src  js.stripe.com  - Stripe.js, which mounts the Payment Element
+        frame-src   js/hooks.stripe.com - the iframe the card is typed into, and
+                                          the one 3-D Secure redirects through
+        connect-src api.stripe.com - the calls Stripe.js makes on confirm
+
+      That iframe is the whole reason card data never reaches our servers, so
+      the policy has to permit it. Nothing else third-party is allowed.
+    -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="
+        default-src 'self';
+        script-src 'self' https://js.stripe.com;
+        frame-src https://js.stripe.com https://hooks.stripe.com;
+        connect-src 'self' https://api.stripe.com;
+        img-src 'self' data: https://*.stripe.com;
+        style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+        font-src 'self' https://fonts.gstatic.com;
+        base-uri 'self';
+        form-action 'self';
+        frame-ancestors 'none';
+        object-src 'none'
+      "
+    />
     <meta name="description" content="Malu Aviation - vols passagers et cargo en Republique Democratique du Congo depuis 1993. Bases a Kinshasa et Goma." />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="Required.FirstName" xml:space="preserve">
+    <value>Le prénom est obligatoire.</value>
+  </data>
+  <data name="Required.LastName" xml:space="preserve">
+    <value>Le nom est obligatoire.</value>
+  </data>
+  <data name="Required.Email" xml:space="preserve">
+    <value>L’adresse e-mail est obligatoire.</value>
+  </data>
+  <data name="Invalid.Email" xml:space="preserve">
+    <value>Saisissez une adresse e-mail valide.</value>
+  </data>
+  <data name="Invalid.Phone" xml:space="preserve">
+    <value>Saisissez un numéro de téléphone valide.</value>
+  </data>
+  <data name="Required.Password" xml:space="preserve">
+    <value>Le mot de passe est obligatoire.</value>
+  </data>
+  <data name="Password.TooShort" xml:space="preserve">
+    <value>Utilisez au moins 10 caractères.</value>
+  </data>
+  <data name="Password.NeedsUpper" xml:space="preserve">
+    <value>Incluez au moins une majuscule.</value>
+  </data>
+  <data name="Password.NeedsLower" xml:space="preserve">
+    <value>Incluez au moins une minuscule.</value>
+  </data>
+  <data name="Password.NeedsDigit" xml:space="preserve">
+    <value>Incluez au moins un chiffre.</value>
+  </data>
+  <data name="Language.Unsupported" xml:space="preserve">
+    <value>La langue doit être « fr » ou « en ».</value>
+  </data>
+  <data name="Search.OriginRequired" xml:space="preserve">
+    <value>L’aéroport de départ est obligatoire.</value>
+  </data>
+  <data name="Search.DestinationRequired" xml:space="preserve">
+    <value>L’aéroport d’arrivée est obligatoire.</value>
+  </data>
+  <data name="Search.IataFormat" xml:space="preserve">
+    <value>Utilisez un code IATA à trois lettres, par exemple GOM.</value>
+  </data>
+  <data name="Search.DateRequired" xml:space="preserve">
+    <value>La date de départ est obligatoire.</value>
+  </data>
+  <data name="Search.DateInPast" xml:space="preserve">
+    <value>La date de départ ne peut pas être dans le passé.</value>
+  </data>
+  <data name="Search.PassengerRange" xml:space="preserve">
+    <value>Entre 1 et 9 passagers par réservation.</value>
+  </data>
+  <data name="Search.MaxPriceBelowMin" xml:space="preserve">
+    <value>Le prix maximum doit être au moins égal au prix minimum.</value>
+  </data>
+  <data name="Search.TimeWindow" xml:space="preserve">
+    <value>L’heure de départ la plus tardive doit suivre la plus précoce.</value>
+  </data>
+  <data name="Search.AirlineCode" xml:space="preserve">
+    <value>Les codes de compagnie comptent deux ou trois caractères.</value>
+  </data>
+  <data name="Search.PageMin" xml:space="preserve">
+    <value>La numérotation des pages commence à 1.</value>
+  </data>
+  <data name="Search.PageSizeRange" xml:space="preserve">
+    <value>La taille de page doit être comprise entre 1 et {0}.</value>
+  </data>
+  <data name="Booking.FlightRequired" xml:space="preserve">
+    <value>Un vol doit être sélectionné.</value>
+  </data>
+  <data name="Booking.ContactEmail" xml:space="preserve">
+    <value>Une adresse e-mail de contact est obligatoire.</value>
+  </data>
+  <data name="Booking.PassengersRequired" xml:space="preserve">
+    <value>Au moins un passager est obligatoire.</value>
+  </data>
+  <data name="Booking.TooManyPassengers" xml:space="preserve">
+    <value>Une réservation accepte au maximum {0} passagers.</value>
+  </data>
+  <data name="Booking.DuplicatePassport" xml:space="preserve">
+    <value>Chaque passager doit avoir un numéro de passeport différent.</value>
+  </data>
+  <data name="Passenger.DobRequired" xml:space="preserve">
+    <value>La date de naissance est obligatoire.</value>
+  </data>
+  <data name="Passenger.DobInFuture" xml:space="preserve">
+    <value>La date de naissance doit être dans le passé.</value>
+  </data>
+  <data name="Passenger.DobImplausible" xml:space="preserve">
+    <value>Saisissez une date de naissance valide.</value>
+  </data>
+  <data name="Passenger.NationalityRequired" xml:space="preserve">
+    <value>La nationalité est obligatoire.</value>
+  </data>
+  <data name="Passenger.NationalityFormat" xml:space="preserve">
+    <value>Utilisez un code pays à deux lettres, par exemple CD.</value>
+  </data>
+  <data name="Passenger.PassportRequired" xml:space="preserve">
+    <value>Le numéro de passeport est obligatoire.</value>
+  </data>
+  <data name="Passenger.PassportFormat" xml:space="preserve">
+    <value>Un numéro de passeport ne contient que des lettres et des chiffres.</value>
+  </data>
+  <data name="Passenger.PassportExpired" xml:space="preserve">
+    <value>Ce passeport est expiré.</value>
+  </data>
+  <data name="Charter.NameRequired" xml:space="preserve">
+    <value>Un nom de contact est obligatoire.</value>
+  </data>
+  <data name="Charter.OriginRequired" xml:space="preserve">
+    <value>D’où part le vol ?</value>
+  </data>
+  <data name="Charter.DestinationRequired" xml:space="preserve">
+    <value>Où va le vol ?</value>
+  </data>
+  <data name="Charter.DateInPast" xml:space="preserve">
+    <value>La date de départ ne peut pas être dans le passé.</value>
+  </data>
+  <data name="Charter.DateTooFar" xml:space="preserve">
+    <value>Contactez-nous plus près de la date souhaitée.</value>
+  </data>
+  <data name="Charter.ReturnBeforeDeparture" xml:space="preserve">
+    <value>La date de retour ne peut pas précéder la date de départ.</value>
+  </data>
+  <data name="Charter.PassengersRequired" xml:space="preserve">
+    <value>Combien de passagers ?</value>
+  </data>
+  <data name="Charter.PassengerRange" xml:space="preserve">
+    <value>Entre 1 et {0} passagers par charter.</value>
+  </data>
+  <data name="Charter.WeightRequired" xml:space="preserve">
+    <value>Quel est le poids du cargo ?</value>
+  </data>
+  <data name="Charter.WeightRange" xml:space="preserve">
+    <value>Jusqu’à {0:N0} kg par rotation — précisez-le dans le message si c’est davantage.</value>
+  </data>
+  <data name="Charter.CargoDescription" xml:space="preserve">
+    <value>Précisez la nature du cargo.</value>
+  </data>
+</root>

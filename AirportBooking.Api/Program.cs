@@ -8,9 +8,18 @@ using AirportBooking.Infrastructure;
 using AirportBooking.Infrastructure.Data.Seed;
 using AirportBooking.Infrastructure.Payments;
 using FluentValidation;
+using Serilog;
 using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Structured logging with scrubbing, before anything else can log.
+builder.AddSerilogLogging();
+
+// Kestrel writes its own Server header after the middleware pipeline has run,
+// so the security-headers policy cannot remove it. This is the only place that
+// can. Version banners help an attacker choose an exploit and help nobody else.
+builder.WebHost.ConfigureKestrel(options => options.AddServerHeader = false);
 
 builder.Services.AddControllers(options =>
 {
@@ -36,6 +45,11 @@ builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddJwtAuthentication(builder.Configuration);
 builder.Services.AddCorsPolicy(builder.Configuration);
 builder.Services.AddAuthRateLimiting();
+builder.Services.AddRequestLocalization();
+
+// Resource lookup for validator messages. ResourcesPath points at the folder
+// holding ValidationMessages.resx and its per-culture siblings.
+builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
 
 builder.Services.AddValidatorsFromAssemblyContaining<RegisterRequestValidator>();
 
@@ -83,11 +97,19 @@ else
     app.UseHsts();
 }
 
+// Applied to every response, including those produced by the exception
+// handler above.
+app.UseApiSecurityHeaders(app.Environment);
+
 app.UseHttpsRedirection();
 
 // Order below this line is not stylistic — each of these depends on the one
 // before it having run:
 app.UseRouting();
+
+//   Localization before the endpoints that produce user-facing text, so
+//   CurrentUICulture is set by the time a validator builds a message.
+app.UseRequestLocalization();
 
 //   CORS before auth, so the browser's preflight OPTIONS gets its headers
 //   without needing a token it never sends on a preflight.
@@ -101,6 +123,8 @@ app.UseRateLimiter();
 //   these makes [Authorize] reject everyone, because nobody is signed in yet.
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.ValidateCorsConfiguration();
 
 app.MapControllers();
 
