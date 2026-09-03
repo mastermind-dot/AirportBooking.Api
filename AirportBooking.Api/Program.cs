@@ -8,10 +8,20 @@ using AirportBooking.Infrastructure;
 using AirportBooking.Infrastructure.Data.Seed;
 using AirportBooking.Infrastructure.Payments;
 using FluentValidation;
-using Serilog;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.Extensions.Options;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// The unit file is Type=notify, which means systemd waits to be told the app is
+// ready and kills it after the timeout if nobody says so. This is what says so.
+// It also makes SIGTERM a graceful shutdown rather than a kill, so in-flight
+// requests finish during a deploy.
+//
+// A no-op when the process is not running under systemd, so it changes nothing
+// on Windows or in a container.
+builder.Host.UseSystemd();
 
 // Structured logging with scrubbing, before anything else can log.
 builder.AddSerilogLogging();
@@ -53,12 +63,41 @@ builder.Services.AddLocalization(options => options.ResourcesPath = "Resources")
 
 builder.Services.AddValidatorsFromAssemblyContaining<RegisterRequestValidator>();
 
+// Behind a reverse proxy the app sees the proxy, not the visitor: every request
+// arrives from 127.0.0.1 over plain HTTP. Two things break quietly as a result —
+// the rate limiters partition on RemoteIpAddress, so all traffic would share one
+// bucket and lock every user out together, and Request.IsHttps would be false,
+// which HTTPS redirection reads as needing another redirect.
+//
+// Only the proxy's own forwarded headers are trusted. KnownProxies defaults to
+// loopback, which is right when the proxy runs on this host; add the proxy's
+// address here if it does not, and never clear the list — an empty one lets any
+// caller claim any IP and defeat the rate limiter entirely.
+builder.Services.Configure<ForwardedHeadersOptions>(options =>
+{
+    options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
+});
+
+// UseHttpsRedirection needs a port to redirect to, and finds one only from an
+// https:// server address or an explicit setting. Behind a TLS-terminating
+// proxy the app listens on plain HTTP, so it finds neither, logs a warning and
+// quietly does nothing — protection that reads as present in Program.cs and is
+// not there at runtime.
+//
+// The real redirect belongs at the proxy, which sees the public request first.
+// This is the backstop for anything that reaches the app over HTTP anyway.
+builder.Services.AddHttpsRedirection(options => options.HttpsPort = 443);
+
 // Releases seats held by bookings that were never paid for.
 builder.Services.AddHostedService<PendingBookingExpiryWorker>();
 
 var app = builder.Build();
 
-// First in the pipeline, so it can catch anything thrown further down.
+// Before anything reads the client IP or the scheme, so both are the visitor's
+// rather than the proxy's for every middleware that follows.
+app.UseForwardedHeaders();
+
+// First of our own, so it catches anything thrown further down.
 app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 // Stripe is optional at boot so that search, booking and auth still run without

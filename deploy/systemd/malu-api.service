@@ -1,0 +1,62 @@
+# Malu Aviation API
+#
+#   /etc/systemd/system/malu-api.service
+#   systemctl daemon-reload && systemctl enable --now malu-api
+#
+# Secrets come from the environment file, never from appsettings. Create it
+# with mode 600 owned by root — it holds the database password, the JWT signing
+# key and the Stripe secret key:
+#
+#   /etc/malu-api.env
+#     ConnectionStrings__Default=Host=localhost;Database=malu;Username=malu;Password=...
+#     Jwt__SigningKey=<64+ random characters>
+#     Stripe__SecretKey=sk_live_...
+#     Stripe__WebhookSecret=whsec_...
+
+[Unit]
+Description=Malu Aviation API
+After=network.target postgresql.service
+Wants=postgresql.service
+
+[Service]
+# Requires builder.Host.UseSystemd() in Program.cs — that is what sends the
+# readiness notification. Without it systemd waits for a signal that never
+# arrives, times out after 90s and kills a process that was serving fine.
+# If that call is ever removed, this must become Type=simple in the same commit.
+Type=notify
+WorkingDirectory=/var/www/malu-api
+ExecStart=/usr/bin/dotnet /var/www/malu-api/AirportBooking.Api.dll
+
+# Bound to loopback on purpose: nginx is the only thing that should reach it.
+# Exposing this port publicly would bypass TLS, the rate limiters' view of the
+# real client IP, and the Host allow-list all at once.
+Environment=ASPNETCORE_URLS=http://127.0.0.1:5000
+Environment=ASPNETCORE_ENVIRONMENT=Production
+Environment=DOTNET_PRINT_TELEMETRY_MESSAGE=false
+
+EnvironmentFile=/etc/malu-api.env
+
+User=malu
+Group=malu
+
+Restart=always
+RestartSec=5
+
+# The app writes nothing to disk — logs go to stdout, which journald captures.
+# Everything below removes capability it never needed.
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX
+RestrictNamespaces=true
+LockPersonality=true
+MemoryDenyWriteExecute=false
+
+SyslogIdentifier=malu-api
+
+[Install]
+WantedBy=multi-user.target
