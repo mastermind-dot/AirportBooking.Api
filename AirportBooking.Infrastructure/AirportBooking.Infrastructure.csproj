@@ -19,4 +19,10 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <!-- AirportClock and the seed generators are internal by design; the test
+         project is the one place that needs to see them. -->
+    <InternalsVisibleTo Include="AirportBooking.UnitTests" />
+  </ItemGroup>
+
 </Project>

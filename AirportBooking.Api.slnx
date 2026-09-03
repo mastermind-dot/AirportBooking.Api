@@ -3,4 +3,5 @@
   <Project Path="AirportBooking.Application/AirportBooking.Application.csproj" />
   <Project Path="AirportBooking.Domain/AirportBooking.Domain.csproj" />
   <Project Path="AirportBooking.Infrastructure/AirportBooking.Infrastructure.csproj" />
+  <Project Path="tests/AirportBooking.UnitTests/AirportBooking.UnitTests.csproj" />
 </Solution>
