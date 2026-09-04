@@ -6,6 +6,8 @@ import { authApi } from '../api/endpoints';
 import { fieldErrors, toProblem } from '../api/httpClient';
 import { useAuthStore } from '../store/authStore';
 
+import PageHero from '../components/layout/PageHero';
+
 interface Props {
   mode: 'signIn' | 'signUp';
 }
@@ -64,65 +66,65 @@ export default function AuthPage({ mode }: Props) {
   }
 
   return (
-    <section className="section">
-      <div className="shell shell--narrow">
-        <div className="section-head">
-          <h2>{t(mode === 'signIn' ? 'auth.signInTitle' : 'auth.signUpTitle')}</h2>
-        </div>
+    <>
+      <PageHero title={t(mode === 'signIn' ? 'auth.signInTitle' : 'auth.signUpTitle')} />
 
-        <form className="form" onSubmit={handleSubmit} noValidate>
-          {mode === 'signUp' && (
-            <div className="field-grid">
-              <label className="field">
-                <span className="field__label">{t('auth.firstName')}</span>
-                <input name="firstName" autoComplete="given-name" required />
-                {errors.firstName && <span className="field__error">{errors.firstName}</span>}
-              </label>
-              <label className="field">
-                <span className="field__label">{t('auth.lastName')}</span>
-                <input name="lastName" autoComplete="family-name" required />
-                {errors.lastName && <span className="field__error">{errors.lastName}</span>}
-              </label>
-            </div>
-          )}
-
-          <label className="field">
-            <span className="field__label">{t('auth.email')}</span>
-            <input name="email" type="email" autoComplete="email" required />
-            {errors.email && <span className="field__error">{errors.email}</span>}
-          </label>
-
-          <label className="field">
-            <span className="field__label">{t('auth.password')}</span>
-            {mode === 'signUp' && <span className="field__hint">{t('auth.passwordHint')}</span>}
-            <input
-              name="password"
-              type="password"
-              autoComplete={mode === 'signIn' ? 'current-password' : 'new-password'}
-              required
-            />
-            {errors.password && <span className="field__error">{errors.password}</span>}
-          </label>
-
-          {failure && <p className="notice notice--error">{failure}</p>}
-
-          <button type="submit" className="btn btn--primary" disabled={busy}>
-            {busy ? t('auth.signingIn') : t(mode === 'signIn' ? 'auth.signIn' : 'auth.signUp')}
-          </button>
-
-          <p className="form__note">
-            {mode === 'signIn' ? (
-              <>
-                {t('auth.noAccount')} <Link to="/inscription">{t('auth.signUp')}</Link>
-              </>
-            ) : (
-              <>
-                {t('auth.hasAccount')} <Link to="/connexion">{t('auth.signIn')}</Link>
-              </>
+      <section className="section">
+        <div className="shell shell--narrow">
+          <form className="form" onSubmit={handleSubmit} noValidate>
+            {mode === 'signUp' && (
+              <div className="field-grid">
+                <label className="field">
+                  <span className="field__label">{t('auth.firstName')}</span>
+                  <input name="firstName" autoComplete="given-name" required />
+                  {errors.firstName && <span className="field__error">{errors.firstName}</span>}
+                </label>
+                <label className="field">
+                  <span className="field__label">{t('auth.lastName')}</span>
+                  <input name="lastName" autoComplete="family-name" required />
+                  {errors.lastName && <span className="field__error">{errors.lastName}</span>}
+                </label>
+              </div>
             )}
-          </p>
-        </form>
-      </div>
-    </section>
+
+            <label className="field">
+              <span className="field__label">{t('auth.email')}</span>
+              <input name="email" type="email" autoComplete="email" required />
+              {errors.email && <span className="field__error">{errors.email}</span>}
+            </label>
+
+            <label className="field">
+              <span className="field__label">{t('auth.password')}</span>
+              {mode === 'signUp' && <span className="field__hint">{t('auth.passwordHint')}</span>}
+              <input
+                name="password"
+                type="password"
+                autoComplete={mode === 'signIn' ? 'current-password' : 'new-password'}
+                required
+              />
+              {errors.password && <span className="field__error">{errors.password}</span>}
+            </label>
+
+            {failure && <p className="notice notice--error">{failure}</p>}
+
+            <button type="submit" className="btn btn--primary" disabled={busy}>
+              {busy ? t('auth.signingIn') : t(mode === 'signIn' ? 'auth.signIn' : 'auth.signUp')}
+            </button>
+
+            <p className="form__note">
+              {mode === 'signIn' ? (
+                <>
+                  {t('auth.noAccount')} <Link to="/inscription">{t('auth.signUp')}</Link>
+                </>
+              ) : (
+                <>
+                  {t('auth.hasAccount')} <Link to="/connexion">{t('auth.signIn')}</Link>
+                </>
+              )}
+            </p>
+          </form>
+        </div>
+      </section>
+    </>
   );
 }

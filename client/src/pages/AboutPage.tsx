@@ -1,19 +1,17 @@
 import { useTranslation } from 'react-i18next';
 
+import PageHero from '../components/layout/PageHero';
+
 export default function AboutPage() {
   const { t } = useTranslation();
 
   return (
     <>
+      <PageHero eyebrow={t('home.eyebrow')} title={t('about.title')} lead={t('about.p1')} />
+
       <section className="section">
         <div className="shell">
-          <div className="section-head">
-            <p className="eyebrow">{t('home.eyebrow')}</p>
-            <h2>{t('about.title')}</h2>
-          </div>
-
           <div className="prose">
-            <p>{t('about.p1')}</p>
             <p>{t('about.p2')}</p>
             <p>{t('about.p3')}</p>
             <p>{t('about.p4')}</p>

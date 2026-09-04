@@ -1,6 +1,7 @@
 import { Link, useParams, Navigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
+import Icon from '../components/ui/Icon';
 import { findAircraft } from '../data/fleet';
 
 export default function AircraftPage() {
@@ -39,7 +40,7 @@ export default function AircraftPage() {
             &larr; {t('fleet.backToFleet')}
           </Link>
 
-          <p className="eyebrow" style={{ color: 'var(--accent)' }}>
+          <p className="eyebrow">
             {aircraft.count} {aircraft.count > 1 ? t('fleet.unitMany') : t('fleet.unitOne')} ·{' '}
             {t('fleet.inService')}
           </p>
@@ -80,6 +81,7 @@ export default function AircraftPage() {
           <ul className="checks" style={{ maxWidth: '60ch' }}>
             {aircraft.highlightKeys.map((key) => (
               <li key={key}>
+                <Icon name="check" size={18} strokeWidth={2.4} />
                 <span>{t(`fleet.highlights.${key}`)}</span>
               </li>
             ))}

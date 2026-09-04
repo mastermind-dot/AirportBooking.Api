@@ -6,6 +6,8 @@ import { bookingsApi } from '../api/endpoints';
 import { useAuthStore } from '../store/authStore';
 import type { BookingSummary } from '../types';
 
+import PageHero from '../components/layout/PageHero';
+
 export default function MyBookingsPage() {
   const { t, i18n } = useTranslation();
   const { accessToken, bootstrapped } = useAuthStore();
@@ -28,45 +30,45 @@ export default function MyBookingsPage() {
     new Intl.DateTimeFormat(i18n.resolvedLanguage, { dateStyle: 'medium' }).format(new Date(iso));
 
   return (
-    <section className="section">
-      <div className="shell">
-        <div className="section-head">
-          <h2>{t('nav.myBookings')}</h2>
-        </div>
+    <>
+      <PageHero title={t('nav.myBookings')} />
 
-        {items === null && <p className="notice">…</p>}
+      <section className="section">
+        <div className="shell">
+          {items === null && <p className="notice">…</p>}
 
-        {items?.length === 0 && (
-          <div className="notice">
-            <p>{t('search.prompt')}</p>
-            <Link to="/reserver" className="btn btn--outline">{t('nav.book')}</Link>
+          {items?.length === 0 && (
+            <div className="notice">
+              <p>{t('search.prompt')}</p>
+              <Link to="/reserver" className="btn btn--outline">{t('nav.book')}</Link>
+            </div>
+          )}
+
+          <div className="flight-list">
+            {items?.map((booking) => (
+              <article key={booking.id} className="flight">
+                <div>
+                  <span className="badge">{booking.reference}</span>
+                  <h3 style={{ marginTop: 10 }}>
+                    {booking.flight.originCity} → {booking.flight.destinationCity}
+                  </h3>
+                  <p style={{ color: 'var(--muted)', margin: '6px 0 0' }}>
+                    {booking.flight.flightNumber} · {day(booking.flight.departureTimeLocal)} ·{' '}
+                    {booking.passengerCount} × {money(booking.totalAmount / Math.max(booking.passengerCount, 1), booking.currency)}
+                  </p>
+                </div>
+
+                <div className="flight__book">
+                  <span className={`status status--${booking.status.toLowerCase()}`}>
+                    {t(`booking.status.${booking.status}`)}
+                  </span>
+                  <strong>{money(booking.totalAmount, booking.currency)}</strong>
+                </div>
+              </article>
+            ))}
           </div>
-        )}
-
-        <div className="flight-list">
-          {items?.map((booking) => (
-            <article key={booking.id} className="flight">
-              <div>
-                <span className="badge">{booking.reference}</span>
-                <h3 style={{ marginTop: 10, color: 'var(--brand-deep)' }}>
-                  {booking.flight.originCity} → {booking.flight.destinationCity}
-                </h3>
-                <p style={{ color: 'var(--muted)', margin: '6px 0 0' }}>
-                  {booking.flight.flightNumber} · {day(booking.flight.departureTimeLocal)} ·{' '}
-                  {booking.passengerCount} × {money(booking.totalAmount / Math.max(booking.passengerCount, 1), booking.currency)}
-                </p>
-              </div>
-
-              <div className="flight__book">
-                <span className={`status status--${booking.status.toLowerCase()}`}>
-                  {t(`booking.status.${booking.status}`)}
-                </span>
-                <strong>{money(booking.totalAmount, booking.currency)}</strong>
-              </div>
-            </article>
-          ))}
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 }

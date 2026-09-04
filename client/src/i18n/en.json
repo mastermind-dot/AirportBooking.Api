@@ -6,21 +6,23 @@
   "nav": {
     "home": "Home",
     "about": "About us",
-    "fleet": "Our aircraft",
-    "services": "Our services",
+    "fleet": "Fleet",
+    "services": "Services",
     "contact": "Contact",
     "menu": "Menu",
     "book": "Book",
     "charter": "Charter quote",
     "signIn": "Sign in",
     "signOut": "Sign out",
-    "myBookings": "My bookings"
+    "myBookings": "My bookings",
+    "flights": "Flights",
+    "bookFlight": "Book a Flight"
   },
   "home": {
-    "eyebrow": "Since 1993",
-    "heroTitle": "Connecting the DRC, one airstrip at a time",
-    "heroLead": "Cargo flights and passenger charters from Kinshasa and Goma, to the places the road does not reach.",
-    "ctaFleet": "See our aircraft",
+    "eyebrow": "Private jet charter & air travel",
+    "heroTitle": "Your Journey, Our Priority",
+    "heroLead": "Fly with Malu Aviation and experience a higher standard of comfort, safety and flexibility. We provide charter and scheduled air services tailored to your needs.",
+    "ctaFleet": "Our Fleet",
     "ctaContact": "Request a quote",
     "statsYears": "years of operation",
     "statsAircraft": "aircraft in service",
@@ -30,13 +32,35 @@
     "aboutLead": "Malu Aviation was founded in 1993 by two airline pilots. The first aircraft they operated was a Douglas DC3 TP, leased in South Africa.",
     "aboutMore": "Read more",
     "servicesTitle": "Our services",
-    "servicesLead": "Three ways to fly with us, anywhere in the country.",
-    "fleetTitle": "Our aircraft",
+    "servicesLead": "Tailored Air Travel Solutions",
+    "fleetTitle": "Our fleet",
     "fleetLead": "Three aircraft, two bases, one operating standard.",
     "safetyTitle": "Safety as the engine",
     "safetyBody": "Safety, security and professionalism govern how the company runs, from the sentry to the accountable manager. Operations follow the recommendations of the Civil Aviation Authority (AAC) and the International Civil Aviation Organization (ICAO).",
     "contactTitle": "Let's talk about your flight",
-    "contactLead": "Passengers or cargo, our teams in Kinshasa and Goma answer you directly."
+    "contactLead": "Passengers or cargo, our teams in Kinshasa and Goma answer you directly.",
+    "features": {
+      "safety": {
+        "title": "Safety First",
+        "body": "Your safety is our top priority."
+      },
+      "service": {
+        "title": "Premium Service",
+        "body": "Exceptional service at every step."
+      },
+      "flexible": {
+        "title": "Flexible Options",
+        "body": "Travel on your terms."
+      },
+      "reach": {
+        "title": "National Reach",
+        "body": "Connecting you to more destinations."
+      }
+    },
+    "servicesBody": "Whether you are travelling for business or leisure, Malu Aviation offers flexible and personalised charter services to get you where you need to be, in comfort and style.",
+    "servicesCta": "See our services",
+    "splitCaption": "Charter & Scheduled Flights",
+    "safetyCaption": "Operating since 1993"
   },
   "about": {
     "title": "About us",
@@ -121,7 +145,10 @@
   "footer": {
     "rights": "All rights reserved.",
     "sections": "Navigation",
-    "contactUs": "Contact us"
+    "contactUs": "Contact us",
+    "book": "Booking",
+    "bases": "Kinshasa & Goma",
+    "since": "Flying the DRC since 1993"
   },
   "language": {
     "label": "Language",
@@ -137,7 +164,7 @@
     "date": "Date",
     "passengers": "Passengers",
     "choose": "Choose…",
-    "submit": "Search",
+    "submit": "Search Flights",
     "loading": "Searching…",
     "failed": "The search failed.",
     "resultCount_one": "{{count}} flight found",
@@ -156,7 +183,13 @@
     "seatsLeft_one": "Only {{count}} seat left",
     "seatsLeft_other": "Only {{count}} seats left",
     "perPassenger": "per passenger",
-    "select": "Select"
+    "select": "Select",
+    "fromPlaceholder": "Departure city",
+    "toPlaceholder": "Arrival city",
+    "swap": "Swap origin and destination",
+    "passengerCount_one": "{{count}} passenger",
+    "passengerCount_other": "{{count}} passengers",
+    "dateLabel": "Departure Date"
   },
   "charter": {
     "title": "Request a charter quote",

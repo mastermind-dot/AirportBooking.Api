@@ -5,22 +5,24 @@
   },
   "nav": {
     "home": "Accueil",
-    "about": "Qui sommes-nous",
-    "fleet": "Nos avions",
-    "services": "Nos services",
+    "about": "À propos",
+    "fleet": "Flotte",
+    "services": "Services",
     "contact": "Nos contacts",
     "menu": "Menu",
     "book": "Réserver",
-    "charter": "Devis charter",
+    "charter": "Demander un devis",
     "signIn": "Connexion",
     "signOut": "Déconnexion",
-    "myBookings": "Mes réservations"
+    "myBookings": "Mes réservations",
+    "flights": "Vols",
+    "bookFlight": "Réserver un vol"
   },
   "home": {
-    "eyebrow": "Depuis 1993",
-    "heroTitle": "Relier la RDC, piste après piste",
-    "heroLead": "Vols cargo et charters passagers au départ de Kinshasa et de Goma, vers les localités que la route n'atteint pas.",
-    "ctaFleet": "Découvrir nos avions",
+    "eyebrow": "Vols privés & transport aérien",
+    "heroTitle": "Votre voyage, notre priorité",
+    "heroLead": "Volez avec Malu Aviation et découvrez un niveau supérieur de confort, de sécurité et de flexibilité. Nous proposons des vols affrétés et réguliers adaptés à vos besoins.",
+    "ctaFleet": "Notre flotte",
     "ctaContact": "Demander un devis",
     "statsYears": "ans d'expérience",
     "statsAircraft": "avions en exploitation",
@@ -30,13 +32,35 @@
     "aboutLead": "Malu Aviation est née en 1993 de la volonté de deux pilotes de ligne. Le premier appareil exploité fut un Douglas DC3 TP pris en location en Afrique du Sud.",
     "aboutMore": "En savoir plus",
     "servicesTitle": "Nos services",
-    "servicesLead": "Trois façons de voler avec nous, sur toute l'étendue du territoire.",
-    "fleetTitle": "Nos avions",
+    "servicesLead": "Des solutions aériennes sur mesure",
+    "fleetTitle": "Notre flotte",
     "fleetLead": "Trois appareils, deux bases, un même standard d'exploitation.",
     "safetyTitle": "La sécurité comme moteur",
     "safetyBody": "La sécurité, la sûreté et le professionnalisme régissent le fonctionnement de la compagnie, de la sentinelle au dirigeant responsable. Notre exploitation suit les recommandations de l'Autorité de l'Aviation Civile (AAC) et de l'Organisation de l'Aviation Civile Internationale (OACI).",
     "contactTitle": "Parlons de votre vol",
-    "contactLead": "Passagers ou cargo, nos équipes de Kinshasa et de Goma vous répondent directement."
+    "contactLead": "Passagers ou cargo, nos équipes de Kinshasa et de Goma vous répondent directement.",
+    "features": {
+      "safety": {
+        "title": "La sécurité d’abord",
+        "body": "Votre sécurité est notre priorité."
+      },
+      "service": {
+        "title": "Service premium",
+        "body": "Un service d’exception à chaque étape."
+      },
+      "flexible": {
+        "title": "Options flexibles",
+        "body": "Voyagez selon vos conditions."
+      },
+      "reach": {
+        "title": "Partout au pays",
+        "body": "Nous vous relions à plus de destinations."
+      }
+    },
+    "servicesBody": "Que vous voyagiez pour affaires ou pour le loisir, Malu Aviation propose des services d’affrètement souples et personnalisés pour vous amener à destination, avec confort et style.",
+    "servicesCta": "Voir nos services",
+    "splitCaption": "Vols affrétés et réguliers",
+    "safetyCaption": "En activité depuis 1993"
   },
   "about": {
     "title": "Qui sommes-nous",
@@ -121,7 +145,10 @@
   "footer": {
     "rights": "Tous droits réservés.",
     "sections": "Navigation",
-    "contactUs": "Nous contacter"
+    "contactUs": "Nous contacter",
+    "book": "Réservation",
+    "bases": "Kinshasa & Goma",
+    "since": "Au service de la RDC depuis 1993"
   },
   "language": {
     "label": "Langue",
@@ -137,7 +164,7 @@
     "date": "Date",
     "passengers": "Passagers",
     "choose": "Choisir…",
-    "submit": "Rechercher",
+    "submit": "Rechercher un vol",
     "loading": "Recherche en cours…",
     "failed": "La recherche a échoué.",
     "resultCount_one": "{{count}} vol trouvé",
@@ -156,7 +183,13 @@
     "seatsLeft_one": "Plus qu’{{count}} place",
     "seatsLeft_other": "Plus que {{count}} places",
     "perPassenger": "par passager",
-    "select": "Choisir"
+    "select": "Choisir",
+    "fromPlaceholder": "Ville de départ",
+    "toPlaceholder": "Ville d’arrivée",
+    "swap": "Inverser le départ et l’arrivée",
+    "passengerCount_one": "{{count}} passager",
+    "passengerCount_other": "{{count}} passagers",
+    "dateLabel": "Date de départ"
   },
   "charter": {
     "title": "Demander un devis charter",

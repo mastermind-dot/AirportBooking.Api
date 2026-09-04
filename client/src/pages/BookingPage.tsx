@@ -8,6 +8,8 @@ import { useAuthStore } from '../store/authStore';
 import type { Booking, PassengerInput } from '../types';
 import { todayLocalIso } from '../utils/dates';
 
+import PageHero from '../components/layout/PageHero';
+
 interface FlightDetails {
   id: string;
   flightNumber: string;
@@ -148,120 +150,119 @@ export default function BookingPage() {
   const fare = flight?.fare ?? 0;
 
   return (
-    <section className="section">
-      <div className="shell shell--narrow">
-        <div className="section-head">
-          <h2>{t('booking.title')}</h2>
-          <p className="lead">{t('booking.lead')}</p>
-        </div>
+    <>
+      <PageHero title={t('booking.title')} lead={t('booking.lead')} />
 
-        {flight && (
-          <div className="notice">
-            <strong>
-              {flight.origin.city} ({flight.origin.iataCode}) → {flight.destination.city} (
-              {flight.destination.iataCode})
-            </strong>
-            <p style={{ margin: '6px 0 0' }}>
-              {flight.flightNumber} · {flight.aircraftType} ·{' '}
-              {money(fare, flight.currency)} × {count} ={' '}
-              <strong>{money(fare * count, flight.currency)}</strong>
-            </p>
-          </div>
-        )}
+      <section className="section">
+        <div className="shell shell--narrow">
+          {flight && (
+            <div className="notice">
+              <strong>
+                {flight.origin.city} ({flight.origin.iataCode}) → {flight.destination.city} (
+                {flight.destination.iataCode})
+              </strong>
+              <p style={{ margin: '6px 0 0' }}>
+                {flight.flightNumber} · {flight.aircraftType} ·{' '}
+                {money(fare, flight.currency)} × {count} ={' '}
+                <strong>{money(fare * count, flight.currency)}</strong>
+              </p>
+            </div>
+          )}
 
-        <form className="form" onSubmit={handleSubmit} noValidate>
-          {passengers.map((passenger, index) => (
-            <fieldset key={index} className="field-group">
-              <legend>{t('booking.passenger', { n: index + 1 })}</legend>
+          <form className="form" onSubmit={handleSubmit} noValidate>
+            {passengers.map((passenger, index) => (
+              <fieldset key={index} className="field-group">
+                <legend>{t('booking.passenger', { n: index + 1 })}</legend>
 
+                <div className="field-grid">
+                  <label className="field">
+                    <span className="field__label">{t('booking.firstName')}</span>
+                    <input
+                      value={passenger.firstName}
+                      onChange={(e) => update(index, 'firstName', e.target.value)}
+                      required
+                    />
+                    {errors[`passengers[${index}].firstName`] && (
+                      <span className="field__error">{errors[`passengers[${index}].firstName`]}</span>
+                    )}
+                  </label>
+
+                  <label className="field">
+                    <span className="field__label">{t('booking.lastName')}</span>
+                    <input
+                      value={passenger.lastName}
+                      onChange={(e) => update(index, 'lastName', e.target.value)}
+                      required
+                    />
+                  </label>
+
+                  <label className="field">
+                    <span className="field__label">{t('booking.dateOfBirth')}</span>
+                    <input
+                      type="date"
+                      max={todayLocalIso()}
+                      value={passenger.dateOfBirth}
+                      onChange={(e) => update(index, 'dateOfBirth', e.target.value)}
+                      required
+                    />
+                  </label>
+
+                  <label className="field">
+                    <span className="field__label">{t('booking.nationality')}</span>
+                    <input
+                      maxLength={2}
+                      style={{ textTransform: 'uppercase' }}
+                      value={passenger.nationality}
+                      onChange={(e) => update(index, 'nationality', e.target.value.toUpperCase())}
+                      required
+                    />
+                  </label>
+
+                  <label className="field">
+                    <span className="field__label">{t('booking.passportNumber')}</span>
+                    <input
+                      value={passenger.passportNumber}
+                      onChange={(e) => update(index, 'passportNumber', e.target.value.toUpperCase())}
+                      required
+                    />
+                  </label>
+
+                  <label className="field">
+                    <span className="field__label">{t('booking.passportExpiry')}</span>
+                    <input
+                      type="date"
+                      value={passenger.passportExpiry ?? ''}
+                      onChange={(e) => update(index, 'passportExpiry', e.target.value)}
+                    />
+                  </label>
+                </div>
+              </fieldset>
+            ))}
+
+            <fieldset className="field-group">
+              <legend>{t('booking.contactEmail')}</legend>
               <div className="field-grid">
                 <label className="field">
-                  <span className="field__label">{t('booking.firstName')}</span>
-                  <input
-                    value={passenger.firstName}
-                    onChange={(e) => update(index, 'firstName', e.target.value)}
-                    required
-                  />
-                  {errors[`passengers[${index}].firstName`] && (
-                    <span className="field__error">{errors[`passengers[${index}].firstName`]}</span>
-                  )}
+                  <span className="field__label">{t('booking.contactEmail')}</span>
+                  <input name="contactEmail" type="email" defaultValue={user?.email ?? ''} required />
+                  {errors.contactEmail && <span className="field__error">{errors.contactEmail}</span>}
                 </label>
-
                 <label className="field">
-                  <span className="field__label">{t('booking.lastName')}</span>
-                  <input
-                    value={passenger.lastName}
-                    onChange={(e) => update(index, 'lastName', e.target.value)}
-                    required
-                  />
-                </label>
-
-                <label className="field">
-                  <span className="field__label">{t('booking.dateOfBirth')}</span>
-                  <input
-                    type="date"
-                    max={todayLocalIso()}
-                    value={passenger.dateOfBirth}
-                    onChange={(e) => update(index, 'dateOfBirth', e.target.value)}
-                    required
-                  />
-                </label>
-
-                <label className="field">
-                  <span className="field__label">{t('booking.nationality')}</span>
-                  <input
-                    maxLength={2}
-                    style={{ textTransform: 'uppercase' }}
-                    value={passenger.nationality}
-                    onChange={(e) => update(index, 'nationality', e.target.value.toUpperCase())}
-                    required
-                  />
-                </label>
-
-                <label className="field">
-                  <span className="field__label">{t('booking.passportNumber')}</span>
-                  <input
-                    value={passenger.passportNumber}
-                    onChange={(e) => update(index, 'passportNumber', e.target.value.toUpperCase())}
-                    required
-                  />
-                </label>
-
-                <label className="field">
-                  <span className="field__label">{t('booking.passportExpiry')}</span>
-                  <input
-                    type="date"
-                    value={passenger.passportExpiry ?? ''}
-                    onChange={(e) => update(index, 'passportExpiry', e.target.value)}
-                  />
+                  <span className="field__label">{t('booking.contactPhone')}</span>
+                  <input name="contactPhone" />
+                  {errors.contactPhone && <span className="field__error">{errors.contactPhone}</span>}
                 </label>
               </div>
             </fieldset>
-          ))}
 
-          <fieldset className="field-group">
-            <legend>{t('booking.contactEmail')}</legend>
-            <div className="field-grid">
-              <label className="field">
-                <span className="field__label">{t('booking.contactEmail')}</span>
-                <input name="contactEmail" type="email" defaultValue={user?.email ?? ''} required />
-                {errors.contactEmail && <span className="field__error">{errors.contactEmail}</span>}
-              </label>
-              <label className="field">
-                <span className="field__label">{t('booking.contactPhone')}</span>
-                <input name="contactPhone" />
-                {errors.contactPhone && <span className="field__error">{errors.contactPhone}</span>}
-              </label>
-            </div>
-          </fieldset>
+            {failure && <p className="notice notice--error">{failure}</p>}
 
-          {failure && <p className="notice notice--error">{failure}</p>}
-
-          <button type="submit" className="btn btn--primary" disabled={busy}>
-            {busy ? t('booking.submitting') : t('booking.submit')}
-          </button>
-        </form>
-      </div>
-    </section>
+            <button type="submit" className="btn btn--primary" disabled={busy}>
+              {busy ? t('booking.submitting') : t('booking.submit')}
+            </button>
+          </form>
+        </div>
+      </section>
+    </>
   );
 }

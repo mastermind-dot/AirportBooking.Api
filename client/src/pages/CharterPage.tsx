@@ -6,6 +6,8 @@ import { fieldErrors, toProblem } from '../api/httpClient';
 import type { AircraftPreference, CharterKind, CharterRequestResult } from '../types';
 import { todayLocalIso } from '../utils/dates';
 
+import PageHero from '../components/layout/PageHero';
+
 const today = () => todayLocalIso();
 
 export default function CharterPage() {
@@ -98,132 +100,130 @@ export default function CharterPage() {
   }
 
   return (
-    <section className="section">
-      <div className="shell">
-        <div className="section-head">
-          <p className="eyebrow">{t('brand.name')}</p>
-          <h2>{t('charter.title')}</h2>
-          <p className="lead">{t('charter.lead')}</p>
-        </div>
+    <>
+      <PageHero eyebrow={t('brand.name')} title={t('charter.title')} lead={t('charter.lead')} />
 
-        <form className="form" onSubmit={handleSubmit} noValidate>
-          <fieldset className="field-group">
-            <legend>{t('charter.form.kind')}</legend>
-            <div className="choice-row">
-              {(['Passenger', 'Cargo'] as const).map((option) => (
-                <label key={option} className={`choice ${kind === option ? 'is-selected' : ''}`}>
-                  <input
-                    type="radio"
-                    name="kind"
-                    value={option}
-                    checked={kind === option}
-                    onChange={() => setKind(option)}
-                  />
-                  {t(`charter.kinds.${option}`)}
-                </label>
-              ))}
+      <section className="section">
+        <div className="shell">
+          <form className="form" onSubmit={handleSubmit} noValidate>
+            <fieldset className="field-group">
+              <legend>{t('charter.form.kind')}</legend>
+              <div className="choice-row">
+                {(['Passenger', 'Cargo'] as const).map((option) => (
+                  <label key={option} className={`choice ${kind === option ? 'is-selected' : ''}`}>
+                    <input
+                      type="radio"
+                      name="kind"
+                      value={option}
+                      checked={kind === option}
+                      onChange={() => setKind(option)}
+                    />
+                    {t(`charter.kinds.${option}`)}
+                  </label>
+                ))}
+              </div>
+            </fieldset>
+
+            <div className="field-grid">
+              <Field name="contactName" label={t('charter.form.name')} required error={errors.contactName} />
+              <Field name="contactEmail" label={t('charter.form.email')} type="email" required error={errors.contactEmail} />
+              <Field name="contactPhone" label={t('charter.form.phone')} error={errors.contactPhone} />
+              <Field name="company" label={t('charter.form.company')} error={errors.company} />
             </div>
-          </fieldset>
 
-          <div className="field-grid">
-            <Field name="contactName" label={t('charter.form.name')} required error={errors.contactName} />
-            <Field name="contactEmail" label={t('charter.form.email')} type="email" required error={errors.contactEmail} />
-            <Field name="contactPhone" label={t('charter.form.phone')} error={errors.contactPhone} />
-            <Field name="company" label={t('charter.form.company')} error={errors.company} />
-          </div>
-
-          <div className="field-grid">
-            <Field
-              name="origin"
-              label={t('charter.form.origin')}
-              hint={t('charter.form.originHint')}
-              required
-              error={errors.origin}
-            />
-            <Field
-              name="destination"
-              label={t('charter.form.destination')}
-              hint={t('charter.form.destinationHint')}
-              required
-              error={errors.destination}
-            />
-            <Field
-              name="departureDate"
-              label={t('charter.form.departureDate')}
-              type="date"
-              min={today()}
-              required
-              error={errors.departureDate}
-            />
-            <Field
-              name="returnDate"
-              label={t('charter.form.returnDate')}
-              type="date"
-              min={today()}
-              error={errors.returnDate}
-            />
-          </div>
-
-          <div className="field-grid">
-            <label className="field">
-              <span className="field__label">{t('charter.form.aircraft')}</span>
-              <select name="preferredAircraft" defaultValue="Any">
-                <option value="Any">{t('charter.aircraft.Any')}</option>
-                <option value="ShortSd360">{t('charter.aircraft.ShortSd360')}</option>
-                <option value="GulfstreamG159">{t('charter.aircraft.GulfstreamG159')}</option>
-              </select>
-            </label>
-
-            {kind === 'Passenger' ? (
+            <div className="field-grid">
               <Field
-                name="passengerCount"
-                label={t('charter.form.passengers')}
-                type="number"
-                min="1"
-                max="30"
-                defaultValue="1"
+                name="origin"
+                label={t('charter.form.origin')}
+                hint={t('charter.form.originHint')}
                 required
-                error={errors.passengerCount}
+                error={errors.origin}
               />
-            ) : (
               <Field
-                name="cargoWeightKg"
-                label={t('charter.form.cargoWeight')}
-                hint={t('charter.form.cargoWeightHint')}
-                type="number"
-                min="1"
-                max="3500"
+                name="destination"
+                label={t('charter.form.destination')}
+                hint={t('charter.form.destinationHint')}
                 required
-                error={errors.cargoWeightKg}
+                error={errors.destination}
+              />
+              <Field
+                name="departureDate"
+                label={t('charter.form.departureDate')}
+                type="date"
+                min={today()}
+                required
+                error={errors.departureDate}
+              />
+              <Field
+                name="returnDate"
+                label={t('charter.form.returnDate')}
+                type="date"
+                min={today()}
+                error={errors.returnDate}
+              />
+            </div>
+
+            <div className="field-grid">
+              <label className="field">
+                <span className="field__label">{t('charter.form.aircraft')}</span>
+                <select name="preferredAircraft" defaultValue="Any">
+                  <option value="Any">{t('charter.aircraft.Any')}</option>
+                  <option value="ShortSd360">{t('charter.aircraft.ShortSd360')}</option>
+                  <option value="GulfstreamG159">{t('charter.aircraft.GulfstreamG159')}</option>
+                </select>
+              </label>
+
+              {kind === 'Passenger' ? (
+                <Field
+                  name="passengerCount"
+                  label={t('charter.form.passengers')}
+                  type="number"
+                  min="1"
+                  max="30"
+                  defaultValue="1"
+                  required
+                  error={errors.passengerCount}
+                />
+              ) : (
+                <Field
+                  name="cargoWeightKg"
+                  label={t('charter.form.cargoWeight')}
+                  hint={t('charter.form.cargoWeightHint')}
+                  type="number"
+                  min="1"
+                  max="3500"
+                  required
+                  error={errors.cargoWeightKg}
+                />
+              )}
+            </div>
+
+            {kind === 'Cargo' && (
+              <Field
+                name="cargoDescription"
+                label={t('charter.form.cargoDescription')}
+                required
+                error={errors.cargoDescription}
               />
             )}
-          </div>
 
-          {kind === 'Cargo' && (
-            <Field
-              name="cargoDescription"
-              label={t('charter.form.cargoDescription')}
-              required
-              error={errors.cargoDescription}
-            />
-          )}
+            <label className="field">
+              <span className="field__label">{t('charter.form.message')}</span>
+              <textarea name="message" rows={4} maxLength={2000} />
+              {errors.message && <span className="field__error">{errors.message}</span>}
+            </label>
 
-          <label className="field">
-            <span className="field__label">{t('charter.form.message')}</span>
-            <textarea name="message" rows={4} maxLength={2000} />
-            {errors.message && <span className="field__error">{errors.message}</span>}
-          </label>
+            {failure && <p className="notice notice--error">{failure}</p>}
 
-          {failure && <p className="notice notice--error">{failure}</p>}
+            <button type="submit" className="btn btn--primary" disabled={submitting}>
+              {submitting ? t('charter.sending') : t('charter.submit')}
+            </button>
 
-          <button type="submit" className="btn btn--primary" disabled={submitting}>
-            {submitting ? t('charter.sending') : t('charter.submit')}
-          </button>
-
-          <p className="form__note">{t('charter.noPriceNote')}</p>
-        </form>
-      </div>
-    </section>
+            <p className="form__note">{t('charter.noPriceNote')}</p>
+          </form>
+        </div>
+      </section>
+    </>
   );
 }
 

@@ -1,5 +1,7 @@
 import { useTranslation } from 'react-i18next';
 
+import PageHero from '../components/layout/PageHero';
+
 /**
  * Contact details as published on the company's own site. Kept as structured
  * data rather than hand-written markup so the two bases stay consistent and a
@@ -33,43 +35,41 @@ export default function ContactPage() {
   const { t } = useTranslation();
 
   return (
-    <section className="section">
-      <div className="shell">
-        <div className="section-head">
-          <p className="eyebrow">{t('brand.name')}</p>
-          <h2>{t('contact.title')}</h2>
-          <p className="lead">{t('contact.lead')}</p>
-        </div>
+    <>
+      <PageHero eyebrow={t('brand.name')} title={t('contact.title')} lead={t('contact.lead')} />
 
-        <div className="grid grid--2">
-          {BASES.map((base) => (
-            <div key={base.airport} className="contact-card">
-              <h3>{base.airport}</h3>
+      <section className="section">
+        <div className="shell">
+          <div className="grid grid--2">
+            {BASES.map((base) => (
+              <div key={base.airport} className="contact-card">
+                <h3>{base.airport}</h3>
 
-              {base.people.map((person) => (
-                <div key={person.email} className="person">
-                  <div className="person__role">{t(`contact.roles.${person.roleKey}`)}</div>
-                  <div className="person__lines">
-                    <a href={`tel:${dial(person.phone)}`}>{person.phone}</a>
-                    <a href={`mailto:${person.email}`}>{person.email}</a>
+                {base.people.map((person) => (
+                  <div key={person.email} className="person">
+                    <div className="person__role">{t(`contact.roles.${person.roleKey}`)}</div>
+                    <div className="person__lines">
+                      <a href={`tel:${dial(person.phone)}`}>{person.phone}</a>
+                      <a href={`mailto:${person.email}`}>{person.email}</a>
+                    </div>
                   </div>
-                </div>
-              ))}
-            </div>
-          ))}
-        </div>
-
-        <div className="contact-card" style={{ marginTop: 26 }}>
-          <h3>{t('contact.generalTitle')}</h3>
-          <div className="person__lines">
-            {GENERAL_EMAILS.map((email) => (
-              <a key={email} href={`mailto:${email}`}>
-                {email}
-              </a>
+                ))}
+              </div>
             ))}
           </div>
+
+          <div className="contact-card" style={{ marginTop: 26 }}>
+            <h3>{t('contact.generalTitle')}</h3>
+            <div className="person__lines">
+              {GENERAL_EMAILS.map((email) => (
+                <a key={email} href={`mailto:${email}`}>
+                  {email}
+                </a>
+              ))}
+            </div>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 }
